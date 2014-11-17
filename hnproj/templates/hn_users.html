@@ -1,0 +1,30 @@
+<html>
+<body>
+{% if users %}
+  {% for user in users %}
+      User: {{ user.username}}  max id: {{ user.last_run_max_id}} <br/>
+  {% endfor %}
+{% else %}
+  No users found.
+{% endif %}
+<form action="/addUser" method="POST">
+  Enter HackerNews usernames to follow:<br/>
+ <input type="text" name="hnUsername"/>
+ <br/><input type="text" name="hnUsername"/>
+ <br/><input type="text" name="hnUsername"/>
+ <br/><input type="text" name="hnUsername"/>
+ <br/><input type="text" name="hnUsername"/>
+  {% csrf_token %}
+  <input type="submit" value="Submit"/>
+</form> 
+<br/><br/>max<br/>
+{{maxData}}
+<br/><br/>
+{% if stories %}
+  {% for story in stories %}
+    {{ story.by }}  <a href="{{ story.url}}">{{story.title}}</a> {{ story.score}}
+    <br/>
+  {% endfor %}
+{% endif %}
+</body>
+</html>
