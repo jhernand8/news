@@ -10,8 +10,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'hnproj.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', hnproj.views.index, name='index'),
-    url(r'^db', hnproj.views.db, name='db'),
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^$', 'hnproj.views.home'),
