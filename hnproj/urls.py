@@ -7,12 +7,12 @@ import hnproj.views
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'hnproj.views.home', name='home'),
+    # url(r'^$', 'hnproj.views.newsByUser', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$', 'hnproj.views.home'),
+    url(r'^$', 'hnproj.views.newsByUser'),
     url(r'^users$', 'hnproj.views.users'),
     url(r'^newsByUser$', 'hnproj.views.newsByUser'),
     url(r'^deleteAllUsers$', 'hnproj.views.clear_out_users'),
