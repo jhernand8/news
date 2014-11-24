@@ -6,7 +6,7 @@ from django.db import models
 class HNUser(models.Model):
   username = models.TextField(primary_key=True)
   last_run_max_id = models.IntegerField()
-  user_id = AutoField()
+  user_id = models.AutoField()
 #
 class HNStory(models.Model):
   storyJSON = models.TextField()
