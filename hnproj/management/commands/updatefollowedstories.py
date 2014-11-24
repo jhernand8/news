@@ -33,7 +33,8 @@ class Command(BaseCommand):
     for id in itemsSince:
       item = storyutils.get_item(id)
       if storyutils.is_story(item) and not storyutils.is_deleted(item):
-        storyItem = HNStory(hnStoryId = int(id), hnUserId = hnuser.user_id, storyJSON = json.dumps(item))
+        print "story: " + str(hnuser.user_id) + ":" + str(id) + ": \n"; 
+        storyItem = HNStory(hnStoryId = int(id), hnUserId = hnuser.user_id, storyJSON = "test")
         storyItem.save()
 
   
