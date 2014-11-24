@@ -8,7 +8,7 @@ from hnproj import storyutils
 class Command(BaseCommand):
   # main method to get and store new stories
   def handle(self, *args, **options):
-    allUsers = HNUser.all()
+    allUsers = HNUser.objects.all()
     currMax = storyutils.get_max_item_id()
     for user in allUsers:
       self.updateStoriesForUser(user)
