@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
+import urllib2
+import json
 from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj import storyutils
