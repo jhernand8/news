@@ -6,6 +6,12 @@ from django.db import models
 class HNUser(models.Model):
   username = models.TextField(primary_key=True)
   last_run_max_id = models.IntegerField()
+  user_id = AutoField()
+#
+class HNStory(models.Model):
+  storyJSON = models.TextField()
+  hnUserId = models.IntegerField()
+  hnStoryId = models.IntegerField(unique = True, primary_key = True)
 
 # object for storing the list of top HN story ids as of a given time.
 class TopStoryIdsByTime(models.Model):
