@@ -1,0 +1,63 @@
+<html>
+<body>
+<script src="https://fb.me/react-0.12.0.js"></script>
+<script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
+<script type="text/jsx">
+/** @jsx React.DOM */
+</script>
+
+var users = {{ users}};
+var storiesMap = {{ storiesByUser}};
+
+var SingleStory = React.createClass({
+  render: function() {
+    return (
+      <div class="singleStoryDiv">
+        <a href="{this.props.story.url}">{this.props.story.title}</a> ({this.props.story.score})
+      
+      </div>
+    );
+  }
+});
+
+var StoriesForUser = React.createClass({
+  render: function() {
+    var storyElems = [];
+    for (var i = 0; i < this.props.stories.length; i++) {
+      storyElems.push(<SingleStory story={this.props.stories[i]} />);
+    }
+    return (
+      <h3>this.props.user.username</h3>
+      {storyElems}
+      <br/></br> 
+    );
+  }
+});
+
+var Stories = React.createClass({
+  render: function() {
+    var elems = [];
+    var allUsers = this.props.users;
+    for (var i = 0; i < allUsers.length; i++) {
+      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i].username] />
+    }
+    return ({elems});
+  }
+});
+
+React.renderComponent(
+  <Stories users={users} stories={storiesMap} />,
+  document.getElementById("storiesDiv"));
+<h2>News by users following</h2>
+<div id="storiesDiv"></div>
+{% if storiesByUser %}
+  {% for user in storiesByUser %}
+    <h4>{{user.username}}</h4>
+    {% for story in storiesByUser[user] %}
+      <a href="{{story.url}}">{{story.title}}</a> ({{story.score}})<br/>
+    {% endfor %}
+    <br/><br/>
+  {% endfor %}
+{% endif %}
+</body>
+</html>

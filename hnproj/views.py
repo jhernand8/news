@@ -33,31 +33,25 @@ def get_max_item_id():
     maxItemData = json.load(urllib2.urlopen(maxItemUrl))
     return long(maxItemData);
 
+# Logic for page to view the stories submitted by users following.
 def newsByUser(request):
-    user_list = HNUser.objects.all()
-    # max item id: 
-    maxItemData = get_max_item_id()
+    user_list = HNUser.objects.orderBy("username").all()
+    stories = HNStory.objects.orderBy("hnStoryId").all()
+
+    usersToStories = {}
     
-    stories = []
+    
     for user in user_list:
-        userdata = get_user_data(user.username)
-        new_items = get_item_list_since(user.last_run_max_id, userdata)
-        for item_id in new_items:
-            itemJSON = get_item(item_id)
-            if (not is_deleted(itemJSON)) and is_story(itemJSON):
-                stories.append(itemJSON)       
+      userStories = []
+      for story in stories:
+        if story.hnUserId == user.user_id:
+          userStories.append(story.story)
+      usersToStories[user.username] = userStories
+
     template = loader.get_template('hn_users.html')
     context = RequestContext(request, {
                'users': user_list,
-               'maxData': maxItemData,
-               'stories': stories})
-    # update the max id as we just showed that user's data
-    # increment it by half, so that we will see most recent items
-    # again but always increasing the id
-    for userhn in user_list:
-        diffid = long(maxItemData) - userhn.last_run_max_id
-        userhn.last_run_max_id += int(diffid/2);
-        userhn.save();
+               'storiesByUser': usersToStories})
     return http.HttpResponse(template.render(context))
 
 # requests the item with the given id, return the json object.
