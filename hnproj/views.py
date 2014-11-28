@@ -46,7 +46,7 @@ def newsByUser(request):
       userStories = []
       for story in stories:
         if story.hnUserId == user.user_id:
-          userStories.append(story.story)
+          userStories.append(story.storyJSON)
       usersToStories[user.username] = userStories
 
     template = loader.get_template('userStories.html')
