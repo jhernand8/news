@@ -35,8 +35,8 @@ def get_max_item_id():
 
 # Logic for page to view the stories submitted by users following.
 def newsByUser(request):
-    user_list = HNUser.objects.orderBy("username").all()
-    stories = HNStory.objects.orderBy("hnStoryId").all()
+    user_list = HNUser.objects.order_by("username").all()
+    stories = HNStory.objects.order_by("hnStoryId").all()
 
     usersToStories = {}
     
