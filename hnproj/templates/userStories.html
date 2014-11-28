@@ -53,8 +53,7 @@ React.renderComponent(
 {% if storiesByUser %}
   {% for user in storiesByUser %}
     <h4>{{user.username}}</h4>
-    {% storiesForUser = storiesByUser[user.username] %}
-    {% for story in storiesForUser %}
+    {% for story in storiesByUser[user.username] %}
       <a href="{{story.url}}">{{story.title}}</a> ({{story.score}})<br/>
     {% endfor %}
     <br/><br/>
