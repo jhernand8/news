@@ -5,6 +5,7 @@ from django.template import RequestContext, loader
 import urllib2
 import json
 from hnproj.models import HNUser
+from hnproj.models import HNStory
 from hnproj.models import TopStoryIdsByTime
 
 def home(request):
@@ -48,7 +49,7 @@ def newsByUser(request):
           userStories.append(story.story)
       usersToStories[user.username] = userStories
 
-    template = loader.get_template('hn_users.html')
+    template = loader.get_template('userStories.html')
     context = RequestContext(request, {
                'users': user_list,
                'storiesByUser': usersToStories})
