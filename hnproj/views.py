@@ -2,8 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import http
 from django.template import RequestContext, loader
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.safestring import mark_safe
 import urllib2
 import json
+from json import JSONEncoder
 from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj.models import TopStoryIdsByTime
@@ -52,8 +55,8 @@ def newsByUser(request):
 
     template = loader.get_template('userStories.html')
     context = RequestContext(request, {
-               'users': usernames,
-               'storiesByUser': usersToStories})
+               'users': mark_safe(json.dumps(usernames, cls=DjangoJSONEncoder)),
+               'storiesByUser': mark_safe(json.dumps(usersToStories, cls=DjangoJSONEncoder))})
     return http.HttpResponse(template.render(context))
 
 # requests the item with the given id, return the json object.
