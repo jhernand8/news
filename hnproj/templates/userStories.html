@@ -25,7 +25,7 @@ var StoriesForUser = React.createClass({
       storyElems.push(<SingleStory story={this.props.stories[i]} />);
     }
     return (
-      <h3>this.props.user</h3>{storyElems} <br/></br>);
+      <h3>{this.props.user}</h3>{storyElems} <br/></br>);
   }
 });
 
