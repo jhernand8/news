@@ -8,9 +8,12 @@ var usernames = {{ users}};
 
 var Stories = React.createClass({
   render: function() {
-    alert("rendering stories");
     alert("num users: " + this.props.users.length);
-    return (<p>user</p>);
+    var userList = [];
+    for (var i = 0; i < this.props.users.length; i++) {
+      userList.push(<p>this.props.users[i]</p>);
+    }
+    return (<p>user</p>{userList}<br/>End);
   }
 });
 
