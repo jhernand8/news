@@ -11,7 +11,7 @@ var StoriesForUser = React.createClass({
     var storyElems = [];
     for (var i = 0; i < this.props.stories.length; i++) {
     }
-    return (<div>TestStories</div>);
+    return (<div><h3>{this.props.user}</h3>{storyElems}</div>);
   }
 });
 var Stories = React.createClass({
