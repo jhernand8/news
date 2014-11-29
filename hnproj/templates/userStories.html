@@ -25,7 +25,7 @@ var StoriesForUser = React.createClass({
       storyElems.push(<SingleStory story={this.props.stories[i]} />);
     }
     return (
-      <h3>this.props.user.username</h3>
+      <h3>this.props.user</h3>
       {storyElems}
       <br/></br> 
     );
@@ -37,7 +37,7 @@ var Stories = React.createClass({
     var elems = [];
     var allUsers = this.props.users;
     for (var i = 0; i < allUsers.length; i++) {
-      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i].username] />
+      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i]] />
     }
     return ({elems});
   }
@@ -51,9 +51,11 @@ React.renderComponent(
 <body>
 <h2>News by users following</h2>
 <div id="storiesDiv"></div>
+after div
 {% if storiesByUser %}
+  stories by user<br/>
   {% for user in storiesByUser %}
-    <h4>{{user.username}}</h4>
+    <h4>{{user}}</h4>
     <br/><br/>
   {% endfor %}
 {% endif %}

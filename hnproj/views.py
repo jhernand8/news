@@ -41,17 +41,18 @@ def newsByUser(request):
 
     usersToStories = {}
     
-    
+    usernames = []
     for user in user_list:
       userStories = []
       for story in stories:
         if story.hnUserId == user.user_id:
           userStories.append(story.storyJSON)
       usersToStories[user.username] = userStories
+      usernames.append(user.username)
 
     template = loader.get_template('userStories.html')
     context = RequestContext(request, {
-               'users': user_list,
+               'users': usernames,
                'storiesByUser': usersToStories})
     return http.HttpResponse(template.render(context))
 
