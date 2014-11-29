@@ -5,11 +5,11 @@
 <script type="text/jsx">
 /** @jsx React.DOM */
 var users = {{ users}};
-var storiesMap = {{ storiesByUser}};
-
 
 var Stories = React.createClass({
   render: function() {
+    alert("rendering stories");
+    alert("num users: " + this.props.users.length);
     var elems = [];
     var allUsers = this.props.users;
     for (var i = 0; i < allUsers.length; i++) {
@@ -20,19 +20,12 @@ var Stories = React.createClass({
 });
 
 React.renderComponent(
-  <Stories users={users} stories={storiesMap} />,
+  <Stories users={users} />,
   document.getElementById("storiesDiv"));
 </script>
 </head>
 <body>
 <h2>News by users following</h2>
 <div id="storiesDiv"></div>
-after div
-{% if storiesByUser %}
-  stories by user<br/>
-  {% for user in users %}
-    <h4>{{user}}</h4>
-  {% endfor %}
-{% endif %}
 </body>
 </html>
