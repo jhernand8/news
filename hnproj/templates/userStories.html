@@ -6,6 +6,16 @@
 /** @jsx React.DOM */
 var usernames = {{ users}};
 var stories = {{ storiesByUser }};
+var StoriesForUser = React.createClass({
+  render: function() {
+    var storyElems = [];
+    for (var i = 0; i < this.props.stories.length; i++) {
+      storyElems.push(<p>{this.props.stories[i]}<p/>);
+    }
+    return (<div>
+      <h3>{this.props.user}</h3>{storyElems} </div>);
+  }
+});
 var Stories = React.createClass({
   render: function() {
     alert("num users: " + this.props.users.length);
