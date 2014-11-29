@@ -5,20 +5,40 @@
 <script type="text/jsx">
 /** @jsx React.DOM */
 var usernames = {{ users}};
-
+var stories = {{ storiesByUser }};
+var SingleStory = React.createClass({
+  render: function() {
+    return (
+      <div class="singleStoryDiv">
+        <a href="{this.props.story.url}">{this.props.story.title}</a> ({this.props.story.score})
+      
+      </div>
+    );
+  }
+});
+var StoriesForUser = React.createClass({
+  render: function() {
+    var storyElems = [];
+    for (var i = 0; i < this.props.stories.length; i++) {
+      storyElems.push(<SingleStory story={this.props.stories[i]} />);
+    }
+    return (<div>
+      <h3>{this.props.user}</h3>{storyElems} <br/></br></div>);
+  }
+});
 var Stories = React.createClass({
   render: function() {
     alert("num users: " + this.props.users.length);
     var userList = [];
     for (var i = 0; i < this.props.users.length; i++) {
-      userList.push(<p>{this.props.users[i]}</p>);
+      userList.push(<StoriesForUser user={this.props.users[i]} stories={this.props.stories[this.props.users[i]]} />
     }
     return (<div><p>"user"</p>{userList}<br/>"End"</div>);
   }
 });
 
 React.renderComponent(
-  <Stories users={usernames} />,
+  <Stories users={usernames} stories={stories}/>,
   document.getElementById("storiesDiv"));
 </script>
 </head>
