@@ -34,7 +34,7 @@ var Stories = React.createClass({
     var elems = [];
     var allUsers = this.props.users;
     for (var i = 0; i < allUsers.length; i++) {
-      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i]] />
+      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i]]} />
     }
     return ({elems});
   }
