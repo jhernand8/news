@@ -6,21 +6,11 @@
 /** @jsx React.DOM */
 var usernames = {{ users}};
 var stories = {{ storiesByUser }};
-var SingleStory = React.createClass({
-  render: function() {
-    return (
-      <div class="singleStoryDiv">
-        <a href="{this.props.story.url}">{this.props.story.title}</a> ({this.props.story.score})
-      
-      </div>
-    );
-  }
-});
 var StoriesForUser = React.createClass({
   render: function() {
     var storyElems = [];
     for (var i = 0; i < this.props.stories.length; i++) {
-      storyElems.push(<SingleStory story={this.props.stories[i]} />);
+      storyElems.push(<p>{this.props.stories[i]}<p/>);
     }
     return (<div>
       <h3>{this.props.user}</h3>{storyElems} </div>);
