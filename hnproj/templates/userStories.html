@@ -7,34 +7,13 @@
 var users = {{ users}};
 var storiesMap = {{ storiesByUser}};
 
-var SingleStory = React.createClass({
-  render: function() {
-    return (
-      <div class="singleStoryDiv">
-        <a href="{this.props.story.url}">{this.props.story.title}</a> ({this.props.story.score})
-      
-      </div>
-    );
-  }
-});
-
-var StoriesForUser = React.createClass({
-  render: function() {
-    var storyElems = [];
-    for (var i = 0; i < this.props.stories.length; i++) {
-      storyElems.push(<SingleStory story={this.props.stories[i]} />);
-    }
-    return (
-      <h3>{this.props.user}</h3>{storyElems} <br/></br>);
-  }
-});
 
 var Stories = React.createClass({
   render: function() {
     var elems = [];
     var allUsers = this.props.users;
     for (var i = 0; i < allUsers.length; i++) {
-      elems.push(<StoriesForUser user={allUsers[i]} stories={this.props.stories[allUsers[i]]} />
+      elems.push(<p>{allUsers[i]}</p>);
     }
     return ({elems});
   }
@@ -51,9 +30,8 @@ React.renderComponent(
 after div
 {% if storiesByUser %}
   stories by user<br/>
-  {% for user in storiesByUser %}
+  {% for user in users %}
     <h4>{{user}}</h4>
-    <br/><br/>
   {% endfor %}
 {% endif %}
 </body>
