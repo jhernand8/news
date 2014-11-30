@@ -38,6 +38,7 @@ SingleStory = React.createClass({
     var user = "";
     if (this.props.showUser) {
       user = "<span className=\"username\">" + this.props.story["by"] + "</span>";
+    }
     return (
       <div className="singleStoryDiv">
         <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span>{{user}}

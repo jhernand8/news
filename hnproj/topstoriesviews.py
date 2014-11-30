@@ -18,7 +18,7 @@ def home(request):
   for story in topStories:
     storyJSONs.append(json.loads(story.story))
   # sort by score
-  stories = sorted(storyJSONs, key=lambda st: int(st.get('score')));
+  stories = sorted(storyJSONs, key=lambda st: int(st.get('score')), reverse=True);
   template = loader.get_template('topstories.html')
   context = RequestContext(request, {
                'allStories': mark_safe(json.dumps(stories, cls=DjangoJSONEncoder))
