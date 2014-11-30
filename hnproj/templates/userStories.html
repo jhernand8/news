@@ -1,19 +1,64 @@
 <html>
 <head>
+<style>
+.score {
+  font-weight: bold;
+  
+}
+.storyDate {
+  color: #A5A2A6;
+}
+h3 {
+  margin-bottom: 0px;
+}
+
+</style>
 <script src="https://fb.me/react-0.12.0.js"></script>
 <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
 var usernames = {{ users}};
 var stories = {{ storiesByUser }};
-
+function monthToStr(month) {
+  switch (month) {
+    case 0:
+      return "Jan"; break;
+    case 1:
+      return "Feb"; break;
+    case 2:
+      return "Mar"; break;
+    case 3:
+      return "Apr"; break;
+    case 4:
+      return "May"; break;
+    case 5:
+      return "June"; break;
+    case 6:
+      return "July"; break;
+    case 7:
+      return "Aug"; break;
+    case 8:
+      return "Sept"; break;
+    case 9:
+      return "Oct"; break;
+    case 10:
+      return "Nov"; break;
+    case 11:
+      return "Dec"; break;
+  }
+  return "";
+}
 
 var SingleStory = React.createClass({
   render: function() {
     var url = this.props.story["url"];
+    var time = this.props.story["time"] * 1000;
+    var storyDate = new Date(time);
+    var month = storyDate.getMonth();
+    var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
     return (
       <div className="singleStoryDiv">
-        <a href="{url}">{this.props.story["title"]}</a> ({this.props.story.score})
+        <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span>
       </div>
     );
   }
