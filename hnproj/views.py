@@ -49,7 +49,7 @@ def newsByUser(request):
       userStories = []
       for story in stories:
         if story.hnUserId == user.user_id:
-          userStories.append(story.storyJSON)
+          userStories.append(json.loads(story.storyJSON))
       usersToStories[user.username] = userStories
       usernames.append(user.username)
 
