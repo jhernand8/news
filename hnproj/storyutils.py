@@ -16,3 +16,11 @@ def is_story(item_json):
 
 def is_deleted(item_json):
     return True == item_json.get('deleted')
+
+# Returns the top items json.
+def get_top_items():
+  url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
+  data = json.load(urllib2.urlopen(url));
+  return data
+
+
