@@ -4,6 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 import hnproj.views
+import hnproj.topstoriesviews
 
 urlpatterns = patterns('',
     # Examples:
@@ -18,5 +19,5 @@ urlpatterns = patterns('',
     url(r'^deleteAllUsers$', 'hnproj.views.clear_out_users'),
     url(r'^addUser$', 'hnproj.views.follow_user'),
     url(r'^cronAddCurrTopItems$', 'hnproj.views.update_top_items'),
-
+    url(r'^topStories$', 'hnproj.topstoriesviews.home'),
 )

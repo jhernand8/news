@@ -1,0 +1,30 @@
+<html>
+<head>
+  {% load staticfiles %}
+  <script src="https://fb.me/react-0.12.0.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
+  <script type="text/jsx" src="{% static "SingleHNStory.jsx" %}"></script>
+<script type="text/jsx">
+/** @jsx React.DOM */
+var allTopStories = {{ allStories }};
+var AllStories = React.createClass({
+  render: function() {
+    var elems = [];
+    for (var i = 0; i < this.props.stories.length; i++) {
+      elems.push(<SingleStory showUser={true} story={this.props.stories[i]} />);
+    }
+    return (<div>{elems}</div>);
+  }
+});
+
+React.renderComponent(
+  <AllStories stories={allTopStories}/>,
+  document.getElementById("topStories"));
+</script>
+</head>
+<body>
+<h2>Top Stories</h2>
+<div id="topSources"></div>
+<div id="topStories"></div>
+</body>
+</html>
