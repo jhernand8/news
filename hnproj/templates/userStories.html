@@ -16,13 +16,59 @@ h3 {
 {% load staticfiles %}
 <script src="https://fb.me/react-0.12.0.js"></script>
 <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
-<script type="text/jsx" src="{% static "SingleHNStory.jsx" %}"></script>
 <script type="text/jsx">
 /** @jsx React.DOM */
 var usernames = {{ users}};
 var stories = {{ storiesByUser }};
 
+function monthToStr(month) {
+  switch (month) {
+    case 0:
+      return "Jan"; break;
+    case 1:
+      return "Feb"; break;
+    case 2:
+      return "Mar"; break;
+    case 3:
+      return "Apr"; break;
+    case 4:
+      return "May"; break;
+    case 5:
+      return "June"; break;
+    case 6:
+      return "July"; break;
+    case 7:
+      return "Aug"; break;
+    case 8:
+      return "Sept"; break;
+    case 9:
+      return "Oct"; break;
+    case 10:
+      return "Nov"; break;
+    case 11:
+      return "Dec"; break;
+  }
+  return "";
+}
 
+var SingleStory = React.createClass({
+  render: function() {
+    var url = this.props.story["url"];
+    var time = this.props.story["time"] * 1000;
+    var storyDate = new Date(time);
+    var month = storyDate.getMonth();
+    var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
+    var username = "";
+    if (this.props.showUser) {
+      username = "&nbsp;&nbsp;<span className=\"username\">" + this.props.story["by"] + "</span>";
+    }
+    return (
+      <div className="singleStoryDiv">
+        <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span>{username}
+      </div>
+    );
+  }
+});
 var StoriesForUser = React.createClass({
   render: function() {
     var storyElems = [];
@@ -35,6 +81,7 @@ var StoriesForUser = React.createClass({
 var Stories = React.createClass({
   render: function() {
     var userList = [];
+    var stories = this.props.stories;
     for (var i = 0; i < this.props.users.length; i++) {
       userList.push(<StoriesForUser key={i} stories={stories[this.props.users[i]]} user={this.props.users[i]}/>);
     }
