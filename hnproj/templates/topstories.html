@@ -44,13 +44,13 @@ var SingleStory = React.createClass({
     var storyDate = new Date(time);
     var month = storyDate.getMonth();
     var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
-    var user = "";
+    var username = "";
     if (this.props.showUser) {
-      user = "<span className=\"username\">" + this.props.story["by"] + "</span>";
+      username = this.props.story["by"];
     }
     return (
       <div className="singleStoryDiv">
-        <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span>{{user}}
+        <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span><span className="username">{username}</span>
       </div>
     );
   }
