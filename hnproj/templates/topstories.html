@@ -1,6 +1,7 @@
 <html>
 <head>
   {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="/static/story.css">
   <script src="https://fb.me/react-0.12.0.js"></script>
   <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
   <script type="text/jsx" src="{% static "SingleHNStory.jsx" %}"></script>
@@ -46,11 +47,18 @@ var SingleStory = React.createClass({
     var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
     var username = "";
     if (this.props.showUser) {
-      username = this.props.story["by"];
+      var userurl = 'https://news.ycombinator.com/user?id=' + this.props.story["by"];
+      username = <a className="usernameLink" href={userurl}>{this.props.story["by"]}</a>;
     }
+    var itemurl = 'https://news.ycombinator.com/item?id=' + this.props.story["id"];
+    var scoreLink = <span className="score">
+       <a href={itemurl}>{this.props.story.score}</a></span>;
     return (
       <div className="singleStoryDiv">
-        <a href={url}>{this.props.story["title"]}</a> <span className="score">({this.props.story.score})</span>  <span className="storyDate">{datestr}</span><span className="username">{username}</span>
+        {scoreLink}
+        <a href={url}>{this.props.story["title"]}</a> 
+        <span className="storyDate">{datestr}</span>
+        <span className="username">{username}</span>
       </div>
     );
   }
@@ -68,11 +76,16 @@ var AllStories = React.createClass({
 React.renderComponent(
   <AllStories stories={allTopStories}/>,
   document.getElementById("topStories"));
+var topInSources = {{ top_urls }};
+React.renderComponent(
+  <AllStories stories={topInSources}/>,
+  document.getElementById("topSources"));
 </script>
 </head>
 <body>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
+<h4>All other top stories</h4>
 <div id="topStories"></div>
 </body>
 </html>

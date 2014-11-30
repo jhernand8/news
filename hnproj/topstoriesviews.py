@@ -11,6 +11,7 @@ from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj.models import TopStoryIdsByTime
 from hnproj.models import HNTopStory
+import string
 
 def home(request):
   topStories = HNTopStory.objects.all()
@@ -19,8 +20,53 @@ def home(request):
     storyJSONs.append(json.loads(story.story))
   # sort by score
   stories = sorted(storyJSONs, key=lambda st: int(st.get('score')), reverse=True);
+  stories_w_top_urls = filter_stories_for_top_urls(stories)
+
+  # remove top from original
+  for story in stories_w_top_urls:
+    stories.remove(story)
+
+  stories = sorted(stories, key=lambda st: int(st.get('score')), reverse=True);
+  stories_w_top_urls = sorted(stories_w_top_urls, key=lambda st: int(st.get('score')), reverse=True);
   template = loader.get_template('topstories.html')
   context = RequestContext(request, {
-               'allStories': mark_safe(json.dumps(stories, cls=DjangoJSONEncoder))
+               'allStories': mark_safe(json.dumps(stories, cls=DjangoJSONEncoder)),
+               'top_urls': mark_safe(json.dumps(stories_w_top_urls, cls=DjangoJSONEncoder))
             })
   return http.HttpResponse(template.render(context))
+
+# Returns a list of stories that have a url in the top urls.
+def filter_stories_for_top_urls(stories):
+  urls = get_top_url_strings()
+  filtered = []
+  for story in stories:
+    url = story.get('url')
+    is_top = False
+    for topurl in urls:
+      if string.find(url, topurl) != -1:
+        is_top = True
+        break
+    if is_top:
+      filtered.append(story)
+  return filtered
+
+# Returns a list of sites that consider top ones.
+# Stories with urls containing these will be put in a separate area.
+def get_top_url_strings():
+  urls = ["washingtonpost.com",
+          "nytimes.com",
+          "newyorker.com",
+          "techcrunch.com",
+          "greatist.com",
+          "neal.is",
+          "randsinrepose.com",
+          "arstechnica.com",
+          "lifehacker.com",
+          "kickstarter.com",
+          "npr.org",
+          "bbc.com",
+          "sfgate.com",
+          "mercurynews.com"
+         ];
+  return urls;
+
