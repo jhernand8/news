@@ -43,7 +43,7 @@ def filter_stories_for_top_urls(stories):
     url = story.get('url')
     is_top = False
     for topurl in urls:
-      if string.find(url, topurl) != -1:
+      if url and string.find(url, topurl) != -1:
         is_top = True
         break
     if is_top:
