@@ -39,3 +39,7 @@ class Command(BaseCommand):
         continue
       topStory = HNTopStory(hnStoryId = int(id), story = json.dumps(story, cls=DjangoJSONEncoder))
       topStory.save()
+
+    # now delete top ids
+    for topIdsForTime in topIds:
+      topIdsForTime.delete()
