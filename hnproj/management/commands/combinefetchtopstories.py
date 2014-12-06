@@ -7,6 +7,8 @@ from hnproj.models import HNStory
 from hnproj.models import HNTopStory
 from hnproj import storyutils
 from sets import Set
+from datetime import date
+from datetime import timedelta
 
 # Cron job that looks at the top story ids that we have saved
 # and combines them into a single list
@@ -43,3 +45,11 @@ class Command(BaseCommand):
     # now delete top ids
     for topIdsForTime in topIds:
       topIdsForTime.delete()
+
+    # also remove old top stories, ie more than n days old
+    for prevStory in prevTop:
+      if int(json.loads(prevStory.story).get('id')) in uniqueIds:
+        continue
+      week = timedelta(days = 7)
+      if (prevStory.date + week) > date.today():
+        prevStory.delete()
