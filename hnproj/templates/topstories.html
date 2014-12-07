@@ -73,8 +73,42 @@ var AllStories = React.createClass({
   }
 });
 
+var AllStoriesByDate = React.createClass({
+  getDisplayDate: function(story) {
+    return datestr;
+
+  },
+
+  render: function() {
+    // split by date
+    var byDate = {};
+    var elems = [];
+    elems.push(<h3>By date</h3>);
+    var numStories = this.props.stories.length;
+    for (var i = 0; i < numStories; i++) {
+      var story = this.props.stories[i];
+      var timeDate = new Date(story["time"] * 1000);
+      var storyDate = new Date(timeDate.getFullYear(), timeDate.getMonth(), timeDate.getDate());
+      var month = storyDate.getMonth();
+      var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
+      if (!(datestr in byDate)) {
+        byDate[datestr] = [];
+      }
+      byDate[datestr].push(story)
+    }
+    var keys = Object.keys(byDate);
+    for (var j = 0; j < keys.length; j++) {
+      var currDate = keys[j];
+      var dateStories = byDate[currDate];
+      console.log(j + ": " + currDate + ": " + dateStories);
+      elems.push(<div><h3>{currDate}</h3><AllStories stories={dateStories}/></div>);
+    }
+    return (<div>{elems}</div>);
+  }
+});
+
 React.renderComponent(
-  <AllStories stories={allTopStories}/>,
+  <AllStoriesByDate stories={allTopStories}/>,
   document.getElementById("topStories"));
 var topInSources = {{ top_urls }};
 React.renderComponent(
