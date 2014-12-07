@@ -51,5 +51,5 @@ class Command(BaseCommand):
       if int(json.loads(prevStory.story).get('id')) in uniqueIds:
         continue
       week = timedelta(days = 7)
-      if (prevStory.date + week) > date.today():
+      if (prevStory.date + week) < date.today():
         prevStory.delete()
