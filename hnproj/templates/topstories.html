@@ -97,6 +97,8 @@ var AllStoriesByDate = React.createClass({
       byDate[datestr].push(story)
     }
     var keys = Object.keys(byDate);
+    keys.sort();
+    keys.reverse();
     for (var j = 0; j < keys.length; j++) {
       var currDate = keys[j];
       var dateStories = byDate[currDate];
