@@ -29,7 +29,7 @@ class Command(BaseCommand):
       jsonStory = json.loads(story.storyJSON)
       secs = int(jsonStory.get("time"))
       storyDate = datetime.fromtimestamp(secs);
-      if ((date.today() - timedelta(days=50)) > storyDate):
+      if ((date.today() - timedelta(days=50)) > storyDate.date()):
         story.delete()
 
      
