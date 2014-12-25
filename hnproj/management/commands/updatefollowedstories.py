@@ -5,12 +5,16 @@ import json
 from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj import storyutils
+from datetime import datetime
+from datetime import timedelta
+from datetime import date
 
 # Cron job to find new stories submitted by users
 # that we're following.
 class Command(BaseCommand):
   # main method to get and store new stories
   def handle(self, *args, **options):
+    self.removeOldStories()
     allUsers = HNUser.objects.all()
     currMax = storyutils.get_max_item_id()
     for user in allUsers:
@@ -18,6 +22,17 @@ class Command(BaseCommand):
       user.last_run_max_id = currMax
       user.save()
 
+  # Deletes old stories for users following
+  def removeOldStories(self):
+    stories = HNStory.objects.all()
+    for story in stories:
+      jsonStory = json.loads(story.storyJSON)
+      secs = int(jsonStory.get["time"]) * 1000
+      storyDate = datetime.fromtimestamp(secs);
+      if ((date.today() - timedelta(days=50)) > storyDate):
+        story.delete()
+
+     
   # Finds new stories for the user
   def updateStoriesForUser(self, hnuser):
     maxId = hnuser.last_run_max_id
