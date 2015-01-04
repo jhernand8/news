@@ -43,7 +43,7 @@ class Command(BaseCommand):
       topStory.save()
 
     # now delete top ids
-    for topIdsForTime in topIds:
+    for topIdsForTime in TopStoryIdsByTime.objects.all():
       topIdsForTime.delete()
 
     # also remove old top stories, ie more than n days old
