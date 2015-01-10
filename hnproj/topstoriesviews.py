@@ -17,6 +17,10 @@ def home(request):
   topStories = HNTopStory.objects.all()
   storyJSONs = []
   for story in topStories:
+    jsonStory = json.loads(story.story);
+    if not jsonStory.get('score'):
+      story.delete();
+      continue;
     storyJSONs.append(json.loads(story.story))
   # sort by score
   stories = sorted(storyJSONs, key=lambda st: int(st.get('score')), reverse=True);
