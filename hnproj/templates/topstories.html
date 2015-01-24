@@ -88,22 +88,21 @@ var AllStoriesByDate = React.createClass({
     for (var i = 0; i < numStories; i++) {
       var story = this.props.stories[i];
       var timeDate = new Date(story["time"] * 1000);
-      var storyDate = new Date(timeDate.getFullYear(), timeDate.getMonth(), timeDate.getDate());
-      var month = storyDate.getMonth();
-      var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
-      if (!(datestr in byDate)) {
-        byDate[datestr] = [];
+      if (!(timeDate in byDate)) {
+        byDate[timeDate] = [];
       }
-      byDate[datestr].push(story)
+      byDate[timeDate].push(story)
     }
     var keys = Object.keys(byDate);
     keys.sort();
     keys.reverse();
     for (var j = 0; j < keys.length; j++) {
       var currDate = keys[j];
+      var storyDate = new Date(timeDate.getFullYear(), timeDate.getMonth(), timeDate.getDate());
+      var month = storyDate.getMonth();
+      var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
       var dateStories = byDate[currDate];
-      console.log(j + ": " + currDate + ": " + dateStories);
-      elems.push(<div><h3>{currDate}</h3><AllStories stories={dateStories}/></div>);
+      elems.push(<div><h3>{dateStr}</h3><AllStories stories={dateStories}/></div>);
     }
     return (<div>{elems}</div>);
   }
