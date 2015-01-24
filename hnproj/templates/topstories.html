@@ -102,7 +102,7 @@ var AllStoriesByDate = React.createClass({
       var month = storyDate.getMonth();
       var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
       var dateStories = byDate[currDate];
-      elems.push(<div><h3>{dateStr}</h3><AllStories stories={dateStories}/></div>);
+      elems.push(<div><h3>{datestr}</h3><AllStories stories={dateStories}/></div>);
     }
     return (<div>{elems}</div>);
   }
