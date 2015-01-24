@@ -85,9 +85,11 @@ var AllStoriesByDate = React.createClass({
     var elems = [];
     elems.push(<h3>By date</h3>);
     var numStories = this.props.stories.length;
+    var daySecs = 24*60*60;
     for (var i = 0; i < numStories; i++) {
       var story = this.props.stories[i];
       var timeDate = new Date(story["time"] * 1000);
+      timeDate = timeDate - (timeDate % (daySecs * 1000)) + 5;
       if (!(timeDate in byDate)) {
         byDate[timeDate] = [];
       }
