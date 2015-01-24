@@ -50,6 +50,6 @@ class Command(BaseCommand):
     for prevStory in prevTop:
       if int(json.loads(prevStory.story).get('id')) in uniqueIds:
         continue
-      daysOld = timedelta(days = 4)
+      daysOld = timedelta(days = 3)
       if (prevStory.date + daysOld) < date.today():
         prevStory.delete()
