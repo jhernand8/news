@@ -27,6 +27,11 @@ class Command(BaseCommand):
     stories = HNStory.objects.all()
     for story in stories:
       jsonStory = json.loads(story.storyJSON)
+      oldTime = jsonStory.get("time")
+      # handle case oldTime is NoneType
+      if not oldTime:
+        story.delete()
+        continue
       secs = int(jsonStory.get("time"))
       storyDate = datetime.fromtimestamp(secs);
       if ((date.today() - timedelta(days=50)) > storyDate.date()):
