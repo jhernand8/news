@@ -53,6 +53,8 @@ class Command(BaseCommand):
     # to the db.
     for id in itemsSince:
       item = storyutils.get_item(id)
+      if not item:
+        continue
       if storyutils.is_story(item) and not storyutils.is_deleted(item):
         storyItem = HNStory(hnStoryId = int(id), hnUserId = hnuser.user_id, storyJSON = json.dumps(item, cls=DjangoJSONEncoder))
         storyItem.save()
