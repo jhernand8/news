@@ -53,3 +53,12 @@ class Command(BaseCommand):
       daysOld = timedelta(days = 3)
       if (prevStory.date + daysOld) < date.today():
         prevStory.delete()
+      # also delete stories based on submission date - as sometimes these
+      # will later make it back into the top 100 stories
+      else:
+        storyTime = int(json.loads(prevStory.story).get('time'))
+        storyDate = datetime.datetime.fromtimestamp(storyTime)
+        if (storyDate + daysOld + daysOld) < date.today():
+          prevStory.delete()
+
+
