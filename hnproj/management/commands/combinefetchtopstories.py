@@ -58,7 +58,7 @@ class Command(BaseCommand):
       # will later make it back into the top 100 stories
       else:
         storyTime = int(json.loads(prevStory.story).get('time'))
-        storyDate = datetime.fromtimestamp(storyTime)
+        storyDate = datetime.fromtimestamp(storyTime).date()
         if (storyDate + daysOld + daysOld) < date.today():
           prevStory.delete()
 
