@@ -8,6 +8,7 @@ from hnproj.models import HNTopStory
 from hnproj import storyutils
 from sets import Set
 from datetime import date
+from datetime import datetime
 from datetime import timedelta
 
 # Cron job that looks at the top story ids that we have saved
@@ -57,7 +58,7 @@ class Command(BaseCommand):
       # will later make it back into the top 100 stories
       else:
         storyTime = int(json.loads(prevStory.story).get('time'))
-        storyDate = datetime.datetime.fromtimestamp(storyTime)
+        storyDate = datetime.fromtimestamp(storyTime)
         if (storyDate + daysOld + daysOld) < date.today():
           prevStory.delete()
 
