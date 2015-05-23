@@ -34,7 +34,7 @@ class Command(BaseCommand):
         continue
       secs = int(jsonStory.get("time"))
       storyDate = datetime.fromtimestamp(secs);
-      if ((date.today() - timedelta(days=50)) > storyDate.date()):
+      if ((date.today() - timedelta(days=30)) > storyDate.date()):
         story.delete()
 
      

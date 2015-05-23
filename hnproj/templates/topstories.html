@@ -65,6 +65,10 @@ var SingleStory = React.createClass({
 });
 var AllStories = React.createClass({
   render: function() {
+    var storiesArr = this.props.stories;
+    storiesArr.sort(function(a, b) {
+      return b.score - a.score;
+    });
     var elems = [];
     for (var i = 0; i < this.props.stories.length; i++) {
       elems.push(<SingleStory showUser={true} story={this.props.stories[i]} />);
@@ -118,11 +122,16 @@ var topInSources = {{ top_urls }};
 React.renderComponent(
   <AllStories stories={topInSources}/>,
   document.getElementById("topSources"));
+React.renderComponent(
+  <AllStories stories={allTopStories}/>,
+  document.getElementById("topStories2"));
 </script>
 </head>
 <body>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
+<h4>All other top stories by score</h4>
+<div id="topStories2"></div>
 <h4>All other top stories</h4>
 <div id="topStories"></div>
 </body>
