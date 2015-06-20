@@ -115,9 +115,6 @@ var AllStoriesByDate = React.createClass({
   }
 });
 
-React.renderComponent(
-  <AllStoriesByDate stories={allTopStories}/>,
-  document.getElementById("topStories"));
 var topInSources = {{ top_urls }};
 React.renderComponent(
   <AllStories stories={topInSources}/>,
