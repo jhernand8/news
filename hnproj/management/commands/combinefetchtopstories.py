@@ -24,7 +24,10 @@ class Command(BaseCommand):
     for topIdsForTime in topIds:
       ids = json.loads(topIdsForTime.storyIds)
       for currid in ids:
-        uniqueIds.add(int(currid))
+        try:
+          uniqueIds.add(int(currid))
+        except ValueError:
+          print "invalid id: " + str(currid) + "\n";
     print "number of unique ids: " + str(len(uniqueIds)) + ".\n"
  
     # remove previous top ones that are in the current set
