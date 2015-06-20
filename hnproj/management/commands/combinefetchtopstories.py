@@ -26,8 +26,8 @@ class Command(BaseCommand):
       for currid in ids:
         try:
           uniqueIds.add(int(currid))
-        except ValueError:
-          print "invalid id: " + str(currid) + "\n";
+        except:
+          pass;
     print "number of unique ids: " + str(len(uniqueIds)) + ".\n"
  
     # remove previous top ones that are in the current set
