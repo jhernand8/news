@@ -38,8 +38,11 @@ class Command(BaseCommand):
     # now fetch stories
     for id in uniqueIds:
       story = storyutils.get_item(id)
-      if storyutils.is_deleted(story):
-        continue
+      try:
+        if storyutils.is_deleted(story):
+          continue
+      except:
+        continue;
       score = story.get('score')
       if score == 1:
         continue
