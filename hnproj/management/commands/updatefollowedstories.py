@@ -21,7 +21,7 @@ class Command(BaseCommand):
     for user in allUsers:
       self.updateStoriesForUser(user)
       user.last_run_max_id = currMax
-      user.update()
+      user.save()
 
   # Deletes old stories for users following
   def removeOldStories(self):
