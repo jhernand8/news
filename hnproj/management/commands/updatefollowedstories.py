@@ -16,11 +16,12 @@ class Command(BaseCommand):
   def handle(self, *args, **options):
     self.removeOldStories()
     allUsers = HNUser.objects.all()
+
     currMax = storyutils.get_max_item_id()
     for user in allUsers:
       self.updateStoriesForUser(user)
       user.last_run_max_id = currMax
-      user.save()
+      user.update()
 
   # Deletes old stories for users following
   def removeOldStories(self):
