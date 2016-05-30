@@ -9,6 +9,7 @@ import json
 from json import JSONEncoder
 from hnproj.models import HNUser
 from hnproj.models import HNStory
+from hnproj.models import HNTopStory
 from hnproj.models import TopStoryIdsByTime
 
 def home(request):
