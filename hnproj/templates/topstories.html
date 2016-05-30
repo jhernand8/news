@@ -46,6 +46,8 @@ var SingleStory = React.createClass({
     var month = storyDate.getMonth();
     var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
     var username = "";
+    var hnid = this.props.story["hnStoryId"];
+    var checkbox = "<input type='checkbox' name='storyId' value='" + hnid + "' className='storyselect'/>";
     if (this.props.showUser) {
       var userurl = 'https://news.ycombinator.com/user?id=' + this.props.story["by"];
       username = <a className="usernameLink" href={userurl}>{this.props.story["by"]}</a>;
@@ -55,6 +57,7 @@ var SingleStory = React.createClass({
        <a href={itemurl}>{this.props.story.score}</a></span>;
     return (
       <div className="singleStoryDiv">
+        {checkbox}
         {scoreLink}
         <a href={url}>{this.props.story["title"]}</a> 
         <span className="storyDate">{datestr}</span>
