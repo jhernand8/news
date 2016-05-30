@@ -47,7 +47,7 @@ var SingleStory = React.createClass({
     var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
     var username = "";
     var hnid = this.props.story["hnStoryId"];
-    var checkbox = <input type='checkbox' name='storyId' value='{hnid}' className='storyselect'/>;
+    var checkbox = <input type='checkbox' name='storyId' value={hnid} className='storyselect'/>;
     if (this.props.showUser) {
       var userurl = 'https://news.ycombinator.com/user?id=' + this.props.story["by"];
       username = <a className="usernameLink" href={userurl}>{this.props.story["by"]}</a>;
@@ -128,7 +128,7 @@ React.renderComponent(
 </script>
 </head>
 <body>
-<form id="storyForm" method="post" action="/removeTopstories">
+<form id="storyForm" method="post" action="/removeTopStories">
 <br/><br/><input type="Submit" value="Submit" name="Submit"/><br/><br/>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
