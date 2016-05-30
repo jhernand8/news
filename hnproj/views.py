@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django import http
 from django.template import RequestContext, loader
@@ -118,5 +119,5 @@ def remove_top_items(request):
         if str(storyId) in ids or storyId in ids:
             story.delete();
             delCount = delCount + 1;
-    return http.HttpResponse("deleted " + str(delCount) + " " + i);
+    return redirect("/topStories");
 
