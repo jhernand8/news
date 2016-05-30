@@ -104,4 +104,15 @@ def update_top_items(request):
     topIdsObj.save();
     return http.HttpResponse("updated");
 
+# removes top stories from the db.
+def remove_top_items(request):
+    ids = request.POST.getlist('');
+    allTopStories = HNTopStory.objects.all();
+    delCount = 0;
+    for story in allTopStories:
+        storyId = story.hnStoryId
+        if storyId in ids:
+            story.delete();
+            delCount = delCount + 1;
+    return http.HttpResponse("deleted " + str(delCount));
 

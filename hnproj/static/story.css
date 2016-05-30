@@ -23,4 +23,7 @@ span.username {
   color: #464646;
   text-decoration: none;
 }
+input.storyselect {
+  margin-right: 20px;
+}
 

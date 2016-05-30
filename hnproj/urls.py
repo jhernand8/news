@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^deleteAllUsers$', 'hnproj.views.clear_out_users'),
     url(r'^addUser$', 'hnproj.views.follow_user'),
     url(r'^cronAddCurrTopItems$', 'hnproj.views.update_top_items'),
+    url(r'^removeTopStories$', 'hnproj.views.remove_top_items'),
     url(r'^topStories$', 'hnproj.topstoriesviews.home'),
 )
