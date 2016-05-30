@@ -107,7 +107,7 @@ def update_top_items(request):
 
 # removes top stories from the db.
 def remove_top_items(request):
-    ids = request.POST.getlist('');
+    ids = request.POST.getlist('storyId');
     allTopStories = HNTopStory.objects.all();
     delCount = 0;
     for story in allTopStories:
