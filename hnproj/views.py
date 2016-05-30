@@ -110,10 +110,13 @@ def remove_top_items(request):
     ids = request.POST.getlist('storyId');
     allTopStories = HNTopStory.objects.all();
     delCount = 0;
+    i = "ids: ";
+    for si in ids:
+        i = i + " " + str(si) + " " + str(type(si)) + " ";
     for story in allTopStories:
         storyId = story.hnStoryId
-        if storyId in ids:
+        if str(storyId) in ids or storyId in ids:
             story.delete();
             delCount = delCount + 1;
-    return http.HttpResponse("deleted " + str(delCount));
+    return http.HttpResponse("deleted " + str(delCount) + " " + i);
 
