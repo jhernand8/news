@@ -22,7 +22,7 @@ def home(request):
       story.delete();
       continue;
     jsonstory = json.loads(story.story);
-    jsonstory['hnstoryid'] = story.get('hnStoryId');
+    jsonstory['hnstoryid'] = story.hnStoryId;
     storyJSONs.append(json.loads(story.story))
   # sort by score
   stories = sorted(storyJSONs, key=lambda st: int(st.get('score')), reverse=True);
