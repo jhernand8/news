@@ -23,7 +23,7 @@ def home(request):
       continue;
     jsonstory = json.loads(story.story);
     jsonstory['hnstoryid'] = story.hnStoryId;
-    storyJSONs.append(json.loads(story.story))
+    storyJSONs.append(jsonstory)
   # sort by score
   stories = sorted(storyJSONs, key=lambda st: int(st.get('score')), reverse=True);
   stories_w_top_urls = filter_stories_for_top_urls(stories)
