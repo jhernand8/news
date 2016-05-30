@@ -129,6 +129,7 @@ React.renderComponent(
 </head>
 <body>
 <form id="storyForm" method="post" action="/removeTopStories">
+{% csrf_token %}
 <br/><br/><input type="Submit" value="Submit" name="Submit"/><br/><br/>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
