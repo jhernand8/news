@@ -46,7 +46,7 @@ var SingleStory = React.createClass({
     var month = storyDate.getMonth();
     var datestr = monthToStr(month) + " " + storyDate.getDate() + ", " + storyDate.getFullYear();
     var username = "";
-    var hnid = this.props.story["hnStoryId"];
+    var hnid = this.props.story["hnstoryid"];
     var checkbox = <input type='checkbox' name='storyId' value={hnid} className='storyselect'/>;
     if (this.props.showUser) {
       var userurl = 'https://news.ycombinator.com/user?id=' + this.props.story["by"];
