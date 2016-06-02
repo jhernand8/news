@@ -84,7 +84,10 @@ var AllStories = React.createClass({
     for (var i = 0; i < storiesArr.length; i++) {
       elemsChecked[i] = false;
     }
-    return {sortedStories: storiesArr, elemsChecked: elemsChecked};
+    return {sortedStories: storiesArr,
+            elemsChecked: elemsChecked,
+            shiftKey: false,
+            lastShiftClickedIndex: -1};
   },
   render: function() {
     var elems = [];
@@ -95,7 +98,8 @@ var AllStories = React.createClass({
                               checkHandler={this.onCheckBoxClick}
                               checked={this.state.elemsChecked[i]}/>);
     }
-    return (<div>{elems}</div>);
+    return (<div onKeyUp={this.onKeyUpHandler}
+                 onKeyDown={this.onKeyDownHandler}>{elems}</div>);
   },
   onCheckBoxClick: function(ev, index) {
     var elemsC = this.state.elemsChecked;
@@ -105,8 +109,36 @@ var AllStories = React.createClass({
     else {
       elemsC[index] = true;
     }
+
+    // if there was a last shift clicked, then update checkboxes for all
+    // items in between
+    if (this.state.shiftKey && this.state.lastShiftClickedIndex >= 0) {
+      var startInd = Math.min(index, this.state.lastShiftClickedIndex);
+      var endInd = Math.max(index, this.state.lastShiftClickedIndex);
+
+      for (var i = startInd; i <= endInd; i += 1) {
+        elemsC[i] = elemsC[index];
+      }
+    }
+    if (this.state.shiftKey) {
+      this.setState({lastShiftClickedIndex: index});
+    }
     this.setState({elemsChecked: elemsC});
 
+  },
+
+  // we want to record whether or not the user has the shift key up/down
+  // so we can select multiple checkboxes if they have been holding the shift down
+  onKeyUpHandler: function(ev) {
+    if (!ev.shiftKey) {
+      this.setState({shiftKey: false, lastShiftClickedIndex: -1});
+    }
+  },
+  
+  onKeyUpHandler: function(ev) {
+    if (ev.shiftKey) {
+      this.setState({shiftKey: true, lastShiftClickedIndex: -1});
+    }
   }
 });
 
@@ -144,8 +176,10 @@ var AllStoriesByDate = React.createClass({
       var dateStories = byDate[currDate];
       elems.push(<div><h3>{datestr}</h3><AllStories stories={dateStories}/></div>);
     }
-    return (<div>{elems}</div>);
-  }
+    return (<div onKeyUp={this.onKeyUpHandler}
+                 onKeyDown={this.onKeyDownHandler}>{elems}</div>);
+  },
+
 });
 
 var topInSources = {{ top_urls }};
