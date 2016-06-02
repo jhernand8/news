@@ -121,8 +121,9 @@ var AllStories = React.createClass({
       for (var i = startInd; i <= endInd; i += 1) {
         elemsC[i] = elemsC[index];
       }
+      this.setState({lastShiftClickedIndex: -1});
     }
-    else if (this.state.shiftKey) {
+    else if (ev.shiftKey) {
       this.setState({lastShiftClickedIndex: index});
     }
     else {
