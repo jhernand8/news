@@ -112,7 +112,9 @@ var AllStories = React.createClass({
 
     // if there was a last shift clicked, then update checkboxes for all
     // items in between
-    if (this.state.shiftKey && this.state.lastShiftClickedIndex >= 0) {
+    // rely on shiftKey from click event as it seems the div does not
+    // throw on key up/down events.
+    if (ev.shiftKey && this.state.lastShiftClickedIndex >= 0) {
       var startInd = Math.min(index, this.state.lastShiftClickedIndex);
       var endInd = Math.max(index, this.state.lastShiftClickedIndex);
 
@@ -120,8 +122,11 @@ var AllStories = React.createClass({
         elemsC[i] = elemsC[index];
       }
     }
-    if (this.state.shiftKey) {
+    else if (this.state.shiftKey) {
       this.setState({lastShiftClickedIndex: index});
+    }
+    else {
+      this.setState({lastShiftClickedIndex: -1});
     }
     this.setState({elemsChecked: elemsC});
 
