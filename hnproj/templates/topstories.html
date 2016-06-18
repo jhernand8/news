@@ -92,6 +92,9 @@ var AllStories = React.createClass({
   render: function() {
     var elems = [];
     for (var i = 0; i < this.state.sortedStories.length; i++) {
+      if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
+        continue;
+      }
       elems.push(<SingleStory showUser={true}
                               story={this.state.sortedStories[i]} 
                               index={i}
