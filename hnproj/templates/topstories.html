@@ -139,14 +139,12 @@ var AllStories = React.createClass({
   // we want to record whether or not the user has the shift key up/down
   // so we can select multiple checkboxes if they have been holding the shift down
   onKeyUpHandler: function(ev) {
-    alert("key up: " + ev.shiftKey);
     if (!ev.shiftKey) {
       this.setState({shiftKey: false, lastShiftClickedIndex: -1});
     }
   },
   
   onKeyDownHandler: function(ev) {
-    alert("key down: " + ev.shiftKey);
     if (ev.shiftKey) {
       this.setState({shiftKey: true, lastShiftClickedIndex: -1});
     }
