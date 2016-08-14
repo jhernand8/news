@@ -69,13 +69,14 @@ var StoriesForUser = React.createClass({
     for (var i = 0; i < this.props.stories.length; i++) {
       storyElems.push(<SingleStory story={this.props.stories[i]} showUser={false} />);
     }
-    var comments = <a href="https://news.ycombinator.com/threads?id={{this.props.user}}">C</a>;
-    var favS = <a href='https://news.ycombinator.com/favorites?id={this.props.user}'>FavS</a>;
-    var favC = <a href='https://news.ycombinator.com/favorites?comments=t&id={{this.props.user}}'>FavC</a>;
     return (<div>
-              <span class="usernameAndLinks">
-                <span class="username">{this.props.user}</span> &nbsp;&nbsp;{comments}  {favS}  {favC}</span>
-                <br/><br/>{storyElems}
+              <span className="usernameAndLinks">
+                <span className="username">{this.props.user}</span> &nbsp;&nbsp;
+                <a href={"https://news.ycombinator.com/threads?id=" + this.props.user}>C</a>&nbps;&nbsp;
+                <a href={"https://news.ycombinator.com/favorites?id=" + this.props.user}>FavS</a>&nbps;&nbsp;
+                <a href={"https://news.ycombinator.com/favorites?comments=t&id=" + this.props.user}>FavC</a>
+              </span>
+              <br/><br/>{storyElems}<br/>
             </div>);
   }
 });
@@ -94,6 +95,15 @@ React.renderComponent(
   <Stories users={usernames} stories={stories}/>,
   document.getElementById("storiesDiv"));
 </script>
+<style>
+  .username {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .usernameAndLinks a {
+    font-size 10px;
+  }
+</style>
 </head>
 <body>
 <h2>News by users following</h2>
