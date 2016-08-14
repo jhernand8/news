@@ -17,7 +17,7 @@ def home(request):
   topStories = HNTopStory.objects.all()
   storyJSONs = []
   for story in topStories:
-    if story.markDeleted is True:
+    if story.marked_deleted is True:
       continue;
     jsonStory = json.loads(story.story);
     if not jsonStory.get('score'):

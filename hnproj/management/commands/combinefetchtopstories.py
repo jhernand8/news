@@ -35,7 +35,7 @@ class Command(BaseCommand):
     for prevStory in prevTop:
       previd = json.loads(prevStory.story).get('id')
       if int(previd) in uniqueIds:
-        if prevStory.markDeleted is True:
+        if prevStory.marked_deleted is True:
           uniqueIds.remove(int(previd))
         else:
           prevStory.delete()
