@@ -118,7 +118,7 @@ def remove_top_items(request):
         storyId = story.hnStoryId
         if str(storyId) in ids or storyId in ids:
             story.marked_deleted = True
-            story.update()
+            story.save()
             delCount = delCount + 1;
     return redirect("/topStories");
 
