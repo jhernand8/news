@@ -69,10 +69,14 @@ var StoriesForUser = React.createClass({
     for (var i = 0; i < this.props.stories.length; i++) {
       storyElems.push(<SingleStory story={this.props.stories[i]} showUser={false} />);
     }
-    var comments = <a href="https://news.ycombinator.com/threads?id={this.props.user}">C</a>;
+    var comments = <a href="https://news.ycombinator.com/threads?id={{this.props.user}}">C</a>;
     var favS = <a href="https://news.ycombinator.com/favorites?id={this.props.user}">FavS</a>;
     var favC = <a href="https://news.ycombinator.com/favorites?comments=t&id={this.props.user}">FavC</a>;
-    return (<div><span class="usernameAndLinks"><span class="username">{this.props.user}</span>{comments}  {favS}  {favC}</span> <br/><br/>{storyElems}</div>);
+    return (<div>
+              <span class="usernameAndLinks">
+                <span class="username">{this.props.user}</span> &nbsp;&nbsp;{comments}  {favS}  {favC}</span>
+                <br/><br/>{storyElems}
+            </div>);
   }
 });
 var Stories = React.createClass({
