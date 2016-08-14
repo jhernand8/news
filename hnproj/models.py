@@ -23,4 +23,4 @@ class HNTopStory(models.Model):
   hnStoryId = models.IntegerField(unique = True, primary_key = True)
   date = models.DateField(auto_now = True, auto_now_add = True)
   story = models.TextField()
-  markedDeleted = models.BooleanField(default = False)
+  marked_deleted = models.BooleanField(default = False)
