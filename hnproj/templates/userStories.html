@@ -71,9 +71,9 @@ var StoriesForUser = React.createClass({
     }
     return (<div>
               <span className="usernameAndLinks">
-                <span className="username">{this.props.user}</span> &nbsp;&nbsp;
-                <a href={"https://news.ycombinator.com/threads?id=" + this.props.user}>C</a>&nbps;&nbsp;
-                <a href={"https://news.ycombinator.com/favorites?id=" + this.props.user}>FavS</a>&nbps;&nbsp;
+                <span className="username">{this.props.user}</span>
+                <a href={"https://news.ycombinator.com/threads?id=" + this.props.user}>C</a>
+                <a href={"https://news.ycombinator.com/favorites?id=" + this.props.user}>FavS</a>
                 <a href={"https://news.ycombinator.com/favorites?comments=t&id=" + this.props.user}>FavC</a>
               </span>
               <br/><br/>{storyElems}<br/>
@@ -102,6 +102,7 @@ React.renderComponent(
   }
   .usernameAndLinks a {
     font-size 10px;
+    padding-left: 10px;
   }
 </style>
 </head>
