@@ -31,10 +31,14 @@ class Command(BaseCommand):
     print "number of unique ids: " + str(len(uniqueIds)) + ".\n"
  
     # remove previous top ones that are in the current set
+    # record deleted ones so we don't add them back
     for prevStory in prevTop:
       previd = json.loads(prevStory.story).get('id')
       if int(previd) in uniqueIds:
-        prevStory.delete()
+        if prevStory.markDeleted is True:
+          uniqueIds.remove(int(previd))
+        else:
+          prevStory.delete()
     # now fetch stories
     for id in uniqueIds:
       story = storyutils.get_item(id)
@@ -57,7 +61,7 @@ class Command(BaseCommand):
     for prevStory in prevTop:
       if int(json.loads(prevStory.story).get('id')) in uniqueIds:
         continue
-      daysOld = timedelta(days = 4)
+      daysOld = timedelta(days = 7)
       if (prevStory.date + daysOld) < date.today():
         prevStory.delete()
       # also delete stories based on submission date - as sometimes these
