@@ -96,7 +96,7 @@ var AllStories = React.createClass({
   },
   // returns the maximum number of stories to show - for now, during the week, show only some
   // but then show all on the weekend
-  computeMaxToShow: function() {
+  computeNumStoriesToShow: function() {
     var currDate = new Date();
     var dayOfWeek = currDate.getDay();
     // sunday, saturday, Friday show all
@@ -107,7 +107,7 @@ var AllStories = React.createClass({
   },
   render: function() {
     var elems = [];
-    var maxToShow = computeMaxToShow();
+    var maxToShow = this.computeNumStoriesToShow();
     var count = 0;
     for (var i = 0; i < this.state.sortedStories.length; i++) {
       if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
