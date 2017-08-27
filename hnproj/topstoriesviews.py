@@ -74,6 +74,9 @@ def get_top_url_strings():
           "npr.org",
           "bbc.com",
           "sfgate.com",
+          "economist.com",
+          "jasonshen.com",
+          "rickyyean.com",
           "mercurynews.com"
          ];
   return urls;

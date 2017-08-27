@@ -94,8 +94,21 @@ var AllStories = React.createClass({
             shiftKey: false,
             lastShiftClickedIndex: -1};
   },
+  // returns the maximum number of stories to show - for now, during the week, show only some
+  // but then show all on the weekend
+  computeMaxToShow: function() {
+    var currDate = new Date();
+    var dayOfWeek = currDate.getDay();
+    // sunday, saturday, Friday show all
+    if (dayOfWeek == 0 || dayOfWeek == 6 || dayOfWeek == 5) {
+      return -1;
+    }
+    return 20;
+  },
   render: function() {
     var elems = [];
+    var maxToShow = computeMaxToShow();
+    var count = 0;
     for (var i = 0; i < this.state.sortedStories.length; i++) {
       if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
         continue;
@@ -105,6 +118,10 @@ var AllStories = React.createClass({
                               index={i}
                               checkHandler={this.onCheckBoxClick}
                               checked={this.state.elemsChecked[i]}/>);
+      count += 1;
+      if (maxToShow > 0 && count > maxToShow) {
+        break;
+      }
     }
     return (<div onKeyUp={this.onKeyUpHandler}
                  onKeyDown={this.onKeyDownHandler}>{elems}</div>);
