@@ -100,7 +100,7 @@ var AllStories = React.createClass({
     var currDate = new Date();
     var dayOfWeek = currDate.getDay();
     // sunday, saturday, Friday show all
-    if (dayOfWeek == 0 || dayOfWeek == 6 || dayOfWeek == 5) {
+    if (dayOfWeek === 0 || dayOfWeek === 6 || dayOfWeek === 5 || dayOfWeek === 4) {
       return -1;
     }
     return 20;
