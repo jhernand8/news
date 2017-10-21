@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.serializers.json import DjangoJSONEncoder
 import urllib2
 import json
+import pytz
 from hnproj.models import TopStoryIdsByTime
 from hnproj.models import HNStory
 from hnproj.models import HNTopStory
@@ -10,13 +11,32 @@ from sets import Set
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+from pytz import timezone
 
 # Cron job that looks at the top story ids that we have saved
 # and combines them into a single list
 # and fetches the stories saving them to the db in
 # as HNTopStory.
 class Command(BaseCommand):
+  # Checks whether or not this program should run -
+  # based on the current time.
+  def shouldUpdate(self):
+    currTime = datetime.utcnow()
+    currTimeUTC = pytz.utc.localize(currTime)
+    pacificTZ = timezone("US/Pacific")
+    pacificTime = currTimeUTC.astimezone(pacificTZ)
+    hour = pacificTime.hour
+    min = pacificTime.minute
+    if hour > 5 and hour <= 13:   
+      return True;
+    if hour >= 17 and hour <= 21:
+      return true;
+    return False
+
   def handle(self, *args, **options):
+    if !self.shouldUpdate() :
+      return
+
     prevTop = HNTopStory.objects.all()
 
     topIds = TopStoryIdsByTime.objects.all()
