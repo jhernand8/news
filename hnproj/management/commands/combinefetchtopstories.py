@@ -34,7 +34,7 @@ class Command(BaseCommand):
     return False
 
   def handle(self, *args, **options):
-    if !self.shouldUpdate() :
+    if not self.shouldUpdate() :
       return
 
     prevTop = HNTopStory.objects.all()
