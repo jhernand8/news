@@ -35,6 +35,7 @@ class Command(BaseCommand):
 
   def handle(self, *args, **options):
     if not self.shouldUpdate() :
+      print "Exiting - not in window to run.\n";
       return
 
     prevTop = HNTopStory.objects.all()
