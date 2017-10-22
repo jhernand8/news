@@ -30,7 +30,7 @@ class Command(BaseCommand):
     if hour > 5 and hour <= 13:   
       return True;
     if hour >= 17 and hour <= 21:
-      return true;
+      return True;
     return False
 
   def handle(self, *args, **options):
