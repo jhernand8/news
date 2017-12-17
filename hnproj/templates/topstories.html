@@ -202,7 +202,7 @@ var ScheduleOfWhenShow = React.createClass({
     for (var day = 0; day < 7; day++) {
       currentDate.setDate(currentDate.getDate() + 1);
       var row = <td>{dayNames[day]}>;
-      for (var hour = 0; hour < 24; hour++) {
+      /*for (var hour = 0; hour < 24; hour++) {
         currentDate.setHours(hour);
         var showCount = this.props.countForDateFn(currentDate);
         var internal = "-";
@@ -213,7 +213,7 @@ var ScheduleOfWhenShow = React.createClass({
           internal = showCount;
         }
         row += <td>{internal}</td>;
-      }
+      }*/
       out += <tr>{row}</tr>;
     }
     var topRow = "";
