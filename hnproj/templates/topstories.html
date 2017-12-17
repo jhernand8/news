@@ -199,6 +199,28 @@ var ScheduleOfWhenShow = React.createClass({
 
     var out = [];
     var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    for (var day = 0; day < 7; day++) {
+      currentDate.setDate(currentDate.getDate() + 1);
+      var row = [];
+      row.push(<td>{dayNames[day]}</td>);
+      for (var hour = 0; hour < 24; hour++) {
+        currentDate.setHours(hour);
+        var showCount = this.props.countForDateFn(currentDate);
+        var content = showCount + "";
+        if (showCount === -1) {
+          content = <span className="showAll"><span>;
+        }
+        else if (showCount === 0) {
+          content = <span className="showNone">-</span>;
+        }
+        row.push(<td>{content}</td>);
+      }
+      var rowName = "dayRow";
+      if ((new Date()).getDay() === day) {
+        rowName = "currDay";
+      }
+      out.push(<tr className={rowName}>{row}</tr>);
+    }
     var topRow = [];
     for (var h = 0; h < 24; h++) {
       topRow.push(<td>{h}</td>);
