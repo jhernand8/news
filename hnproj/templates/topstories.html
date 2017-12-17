@@ -208,7 +208,7 @@ var ScheduleOfWhenShow = React.createClass({
         var showCount = this.props.countForDateFn(currentDate);
         var content = showCount + "";
         if (showCount === -1) {
-          content = "&#10003;";
+          content = <span>&#10003;<span>;
         }
         else if (showCount === 0) {
           content = <span>-</span>;
