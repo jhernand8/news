@@ -99,11 +99,20 @@ var AllStories = React.createClass({
   computeNumStoriesToShow: function() {
     var currDate = new Date();
     var dayOfWeek = currDate.getDay();
-    // sunday, saturday, Friday show all
-    if (dayOfWeek === 0 || dayOfWeek === 6 || dayOfWeek === 5 || dayOfWeek === 4) {
-      return -1;
-    }
-    return 40;
+    var hour = currDate.getHours();
+    var countByDayPer2Hour = [
+    //2a  4a  6a  8a  10  12   2p  4p  6   8   10  12 -end time of range
+      [0,  0,  0,  0, -1,  0,  0,  0,  0, -1,  0,  0], // Sunday
+      [0,  0,  0,  0,  0,  0,  0,  0,  5,  5,  0,  0], // Monday
+      [0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0], // Tuesday
+      [0,  0,  0, -1,  0,  0,  0,  0,  0,  0, -1,  0], // Wednesday
+      [0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0], // Thursday
+      [0,  0,  0, -1,  0,  0,  0,  0, -1, -1,  0,  0], // Friday
+      [0,  0, -1, -1, -1, -1, -1,  0,  0,  0, -1,  0], // Saturday
+    ];
+       
+    var per2HourForDay = countByDayPer2Hour[dayOfWeek];
+    return per2HourForDay[Math.floor(hour / 2)];
   },
   render: function() {
     var elems = [];
