@@ -96,18 +96,17 @@ var AllStories = React.createClass({
   },
   // returns the maximum number of stories to show - for now, during the week, show only some
   // but then show all on the weekend
-  computeNumStoriesToShow: function() {
-    var currDate = new Date();
+  computeNumStoriesToShow: function(currDate) {
     var dayOfWeek = currDate.getDay();
     var hour = currDate.getHours();
     var countByDayPer2Hour = [
     //2a  4a  6a  8a  10  12   2p  4p  6   8   10  12 -end time of range
-      [0,  0,  0,  0, -1,  0,  0,  0,  0, -1,  0,  0], // Sunday
-      [0,  0,  0,  0,  0,  0,  0,  0,  5,  5,  0,  0], // Monday
-      [0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0], // Tuesday
-      [0,  0,  0, -1,  0,  0,  0,  0,  0,  0, -1,  0], // Wednesday
-      [0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0], // Thursday
-      [0,  0,  0, -1,  0,  0,  0,  0, -1, -1,  0,  0], // Friday
+      [0,  0, -1,  0, -1,  0, -1,  0,  0, -1,  0,  0], // Sunday
+      [0,  0, -1,  0,  0,  0, -1,  0,  5,  5,  0,  0], // Monday
+      [0,  0, -1, -1, -1,  0, -1,  0,  0,  0,  0,  0], // Tuesday
+      [0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0], // Wednesday
+      [0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0], // Thursday
+      [0,  0, -1, -1,  0,  0, -1,  0, -1, -1,  0,  0], // Friday
       [0,  0, -1, -1, -1, -1, -1,  0,  0,  0, -1,  0], // Saturday
     ];
        
@@ -116,7 +115,8 @@ var AllStories = React.createClass({
   },
   render: function() {
     var elems = [];
-    var maxToShow = this.computeNumStoriesToShow();
+    var currDate = new Date();
+    var maxToShow = this.computeNumStoriesToShow(currDate);
     var count = 0;
     for (var i = 0; i < this.state.sortedStories.length; i++) {
       if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
@@ -132,8 +132,10 @@ var AllStories = React.createClass({
         break;
       }
     }
-    return (<div onKeyUp={this.onKeyUpHandler}
-                 onKeyDown={this.onKeyDownHandler}>{elems}</div>);
+    return (<div><div onKeyUp={this.onKeyUpHandler}
+                 onKeyDown={this.onKeyDownHandler}>{elems}</div>
+            <ScheduleOfWhenShow countForDateFn={this.computeNumStoriesToShow}/>
+            </div>);
   },
   onCheckBoxClick: function(ev, index) {
     var elemsC = this.state.elemsChecked;
@@ -179,6 +181,46 @@ var AllStories = React.createClass({
     if (ev.shiftKey) {
       this.setState({shiftKey: true, lastShiftClickedIndex: -1});
     }
+  }
+});
+
+var ScheduleOfWhenShow = React.createClass({
+  render: function() {
+    var currentDate = new Date();
+    if (currentDate.getDay() != 0) {
+      if (currentDate.getDate() <= 6) {
+        currentDate.setDate(currentDate.getDate() + 6 - currentDate.getDay());
+      }
+      else {
+        currentDate.setDate(currentDate.getDate() - currentDate.getDay());
+      }
+    }
+    currentDate.setHours(0);
+
+    var out = "";
+    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    for (var day = 0; day < 7; day++) {
+      currentDate.setDate(currentDate.getDate() + 1);
+      var row = <td>{dayNames[day]}>;
+        for (var hour = 0; hour < 24; hour++) {
+          currentDate.setHours(hour);
+          var showCount = this.props.countForDateFn(currentDate);
+          var internal = "-";
+          if (showCount === -1) {
+            internal = &#10003;
+          }
+          else if (showCount !== 0) {
+            internal = showCount;
+          }
+          row += <td>{internal}</td>;
+        }
+      out += <tr>{row}</tr>;
+    }
+    var topRow = "";
+    for (var h = 0; h < 24; h++) {
+      topRow += <td>{h}</td>;
+    }
+    return <table> <tr>{topRow}</tr>{out}</table>;
   }
 });
 
