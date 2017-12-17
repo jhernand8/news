@@ -207,12 +207,6 @@ var ScheduleOfWhenShow = React.createClass({
         currentDate.setHours(hour);
         var showCount = this.props.countForDateFn(currentDate);
         var content = showCount + "";
-        if (showCount === -1) {
-          content = <span className="showAll"> <span>;
-        }
-        else if (showCount === 0) {
-          content = <span className="showNone">-</span>;
-        }
         row.push(<td>{content}</td>);
       }
       var rowName = "dayRow";
