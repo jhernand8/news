@@ -205,14 +205,14 @@ var ScheduleOfWhenShow = React.createClass({
       for (var hour = 0; hour < 24; hour++) {
         currentDate.setHours(hour);
         var showCount = this.props.countForDateFn(currentDate);
-        var internal = "-";
+        var content = "-";
         if (showCount === -1) {
-          internal = <span>&#10003</span>;
+          content = <span>&#10003</span>;
         }
         else if (showCount !== 0) {
-          internal = showCount;
+          content = showCount;
         }
-        row += <td>{internal}</td>;
+        row += <td>{content}</td>;
       }
       out += <tr>{row}</tr>;
     }
