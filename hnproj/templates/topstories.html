@@ -225,7 +225,7 @@ var ScheduleOfWhenShow = React.createClass({
     for (var h = 0; h < 24; h++) {
       topRow.push(<td>{h}</td>);
     }
-    return <table> <tr>{topRow}</tr>{out}</table>;
+    return <table className="scheduleTable"> <tr>{topRow}</tr>{out}</table>;
   }
 });
 
