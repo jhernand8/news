@@ -205,7 +205,7 @@ var ScheduleOfWhenShow = React.createClass({
       row.push(<td>{dayNames[day]}</td>);
       for (var hour = 0; hour < 24; hour++) {
         currentDate.setHours(hour);
-        var showCount = this.props.countForDateFn(currentDate);
+        var showCount = computeNumStoriesToShow(currentDate);
         var content = showCount + "";
         if (showCount === -1) {
           content = <span className="showAll"  >{String.fromCharCode(10004)}</span>;
