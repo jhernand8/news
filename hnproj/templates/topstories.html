@@ -120,6 +120,9 @@ var AllStories = React.createClass({
     var maxToShow = computeNumStoriesToShow(currDate);
     var count = 0;
     for (var i = 0; i < this.state.sortedStories.length; i++) {
+      if (maxToShow === 0) {
+        break;
+      }
       if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
         continue;
       }
