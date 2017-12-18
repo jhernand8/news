@@ -129,7 +129,7 @@ var AllStories = React.createClass({
                               checkHandler={this.onCheckBoxClick}
                               checked={this.state.elemsChecked[i]}/>);
       count += 1;
-      if (maxToShow > 0 && count > maxToShow) {
+      if (maxToShow >= 0 && count > maxToShow) {
         break;
       }
     }
