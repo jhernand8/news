@@ -208,10 +208,10 @@ var ScheduleOfWhenShow = React.createClass({
         var showCount = this.props.countForDateFn(currentDate);
         var content = showCount + "";
         if (showCount === -1) {
-          content = <span className="showAll"  >{'a'+String.fromCharCode(10004) + 'b'}</span>;
+          content = <span className="showAll"  >{String.fromCharCode(10004)}</span>;
         }
         else if (showCount === 0) {
-          content = <span className="showNone">{'bb\u02713 c'}</span>;
+          content = <span className="showNone">-</span>;
         }
         row.push(<td>{content}</td>);
       }
