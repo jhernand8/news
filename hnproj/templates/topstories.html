@@ -202,8 +202,9 @@ var ScheduleOfWhenShow = React.createClass({
 
     var out = [];
     var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var startDate = currentDate.getDate();
     for (var day = 0; day < 7; day++) {
-      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setDate(startDate + day);
       var row = [];
       row.push(<td>{dayNames[day]}</td>);
       for (var hour = 0; hour < 24; hour++) {
