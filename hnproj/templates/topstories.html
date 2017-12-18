@@ -43,6 +43,26 @@ function monthToStr(month) {
   }
   return "";
 }
+// returns the maximum number of stories to show for the given date/time
+function computeNumStoriesToShow(currDate) {
+    var dayOfWeek = currDate.getDay();
+    var hour = currDate.getHours();
+    var countByDayPer2Hour = [
+    //2a  4a  6a  8a  10  12   2p  4p  6   8   10  12 -end time of range
+      [0,  0, -1,  0, -1,  0, -1,  0,  0, -1,  0,  0], // Sunday
+      [0,  0, -1,  0,  0,  0, -1,  0,  5,  5,  0,  0], // Monday
+      [0,  0, -1, -1, -1,  0, -1,  0,  0,  0,  0,  0], // Tuesday
+      [0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0], // Wednesday
+      [0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0], // Thursday
+      [0,  0, -1, -1,  0,  0, -1,  0, -1, -1,  0,  0], // Friday
+      [0,  0, -1, -1, -1, -1, -1,  0,  0,  0, -1,  0], // Saturday
+    ];
+       
+    var per2HourForDay = countByDayPer2Hour[dayOfWeek];
+    return per2HourForDay[Math.floor(hour / 2)];
+}
+
+
 var SingleStory = React.createClass({
   render: function() {
     var url = this.props.story["url"];
@@ -94,29 +114,10 @@ var AllStories = React.createClass({
             shiftKey: false,
             lastShiftClickedIndex: -1};
   },
-  // returns the maximum number of stories to show - for now, during the week, show only some
-  // but then show all on the weekend
-  computeNumStoriesToShow: function(currDate) {
-    var dayOfWeek = currDate.getDay();
-    var hour = currDate.getHours();
-    var countByDayPer2Hour = [
-    //2a  4a  6a  8a  10  12   2p  4p  6   8   10  12 -end time of range
-      [0,  0, -1,  0, -1,  0, -1,  0,  0, -1,  0,  0], // Sunday
-      [0,  0, -1,  0,  0,  0, -1,  0,  5,  5,  0,  0], // Monday
-      [0,  0, -1, -1, -1,  0, -1,  0,  0,  0,  0,  0], // Tuesday
-      [0,  0, -1, -1,  0,  0, -1,  0,  0,  0, -1,  0], // Wednesday
-      [0,  0, -1,  0,  0,  0, -1,  0,  0, -1, -1,  0], // Thursday
-      [0,  0, -1, -1,  0,  0, -1,  0, -1, -1,  0,  0], // Friday
-      [0,  0, -1, -1, -1, -1, -1,  0,  0,  0, -1,  0], // Saturday
-    ];
-       
-    var per2HourForDay = countByDayPer2Hour[dayOfWeek];
-    return per2HourForDay[Math.floor(hour / 2)];
-  },
   render: function() {
     var elems = [];
     var currDate = new Date();
-    var maxToShow = this.computeNumStoriesToShow(currDate);
+    var maxToShow = computeNumStoriesToShow(currDate);
     var count = 0;
     for (var i = 0; i < this.state.sortedStories.length; i++) {
       if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
@@ -134,7 +135,6 @@ var AllStories = React.createClass({
     }
     return (<div><div onKeyUp={this.onKeyUpHandler}
                  onKeyDown={this.onKeyDownHandler}>{elems}</div>
-            <ScheduleOfWhenShow countForDateFn={this.computeNumStoriesToShow}/>
             </div>);
   },
   onCheckBoxClick: function(ev, index) {
@@ -277,6 +277,9 @@ React.renderComponent(
 React.renderComponent(
   <AllStories stories={allTopStories}/>,
   document.getElementById("topStories2"));
+React.renderComponent(
+  <ScheduleOfWhenShow/>,
+  document.getElementById("schedule"));
 </script>
 </head>
 <body>
@@ -289,6 +292,7 @@ React.renderComponent(
 <div id="topStories2"></div>
 <br/><br/><input type="Submit" value="Submit" name="Submit"/>
 </form>
+<br/><br/>Schedule<br/><div id="schedule"></div>
 <br/><br/>
 top: Hourly<br/>
 combine: 13:30UTC,17UTC, 19:00UTC, 0:30UTC, 3:30UTC<br/>
