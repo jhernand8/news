@@ -275,13 +275,13 @@ var AllStoriesByDate = React.createClass({
 });
 
 var topInSources = {{ top_urls }};
-React.renderComponent(
+React.render(
   <AllStories stories={topInSources}/>,
   document.getElementById("topSources"));
-React.renderComponent(
+React.render(
   <AllStories stories={allTopStories}/>,
   document.getElementById("topStories2"));
-React.renderComponent(
+React.render(
   <ScheduleOfWhenShow/>,
   document.getElementById("schedule"));
 </script>
