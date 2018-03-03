@@ -192,7 +192,7 @@ var ScheduleOfWhenShow = React.createClass({
     var currentDate = new Date();
     if (currentDate.getDay() != 0) {
       if (currentDate.getDate() <= 6) {
-        currentDate.setDate(currentDate.getDate() + 6 - currentDate.getDay());
+        currentDate.setDate(currentDate.getDate() + 7 - currentDate.getDay());
       }
       else {
         currentDate.setDate(currentDate.getDate() - currentDate.getDay());
