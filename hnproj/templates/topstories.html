@@ -108,6 +108,10 @@ var AllStories = React.createClass({
     var elemsChecked = [];
     for (var i = 0; i < storiesArr.length; i++) {
       elemsChecked[i] = false;
+      // start off checked if below threshold
+      if (storiesArr[i].score < 100) {
+        elemsChecked[i] = true;
+      }
     }
     return {sortedStories: storiesArr,
             elemsChecked: elemsChecked,
