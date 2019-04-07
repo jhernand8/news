@@ -108,9 +108,27 @@ var AllStories = React.createClass({
     var elemsChecked = [];
     for (var i = 0; i < storiesArr.length; i++) {
       elemsChecked[i] = false;
-      // start off checked if below threshold
-      if (this.props.checked && storiesArr[i].score < 100) {
-        elemsChecked[i] = true;
+    }
+    if (this.props.checked) {
+
+      var scoreHundCount = [];
+      for (var s = 0; s < 50; s++) {
+        scoreHundCount[s] = 0;
+      }
+      // first count num stories with score / 100
+      for (var j = 0; j < storiesArr.length; j++) {
+        var sc = Math.floor(storiesArr[j].score / 100);
+        scoreHundCount[sc] += 1; 
+      }
+      for (var i = 0; i < storiesArr.length; i++) {
+        // start off checked if more than threshold number stories and not enough in lower scores
+        var scoreFloor = Math.floor(storiesArr[i].score / 100); 
+        var countThresh = 50;
+        if (scoreHundCout[scoreFloor] > countThresh
+            && (scoreFloor === 0 || scoreHundCount[scoreFloor - 1] < countThresh))
+        { 
+          elemsChecked[i] = true;
+        }
       }
     }
     return {sortedStories: storiesArr,
