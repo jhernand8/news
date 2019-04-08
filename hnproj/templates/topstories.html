@@ -129,7 +129,7 @@ var AllStories = React.createClass({
         }
         // start off checked if more than threshold number stories and not enough in lower scores
         var scoreFloor = Math.floor(storiesArr[i].score / 100); 
-        var countThresh = 50;
+        var countThresh = 30;
         if (scoreHundCount[scoreFloor] > countThresh
             && (scoreFloor === 0 || scoreHundCount[scoreFloor - 1] < countThresh))
         { 
