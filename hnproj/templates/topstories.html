@@ -117,10 +117,16 @@ var AllStories = React.createClass({
       }
       // first count num stories with score / 100
       for (var j = 0; j < storiesArr.length; j++) {
+        if (storiesArr[j].score < this.getMinScoreToShow()) {
+          continue;
+        }
         var sc = Math.floor(storiesArr[j].score / 100);
         scoreHundCount[sc] += 1; 
       }
       for (var i = 0; i < storiesArr.length; i++) {
+        if (storiesArr[i].score < this.getMinScoreToShow()) {
+          continue;
+        }
         // start off checked if more than threshold number stories and not enough in lower scores
         var scoreFloor = Math.floor(storiesArr[i].score / 100); 
         var countThresh = 50;
@@ -137,6 +143,10 @@ var AllStories = React.createClass({
             shiftKey: false,
             lastShiftClickedIndex: -1};
   },
+  // stories must have a score of at least this to be shown.
+  getMinScoreToShow: function() {
+    return 30;
+  },
   render: function() {
     var elems = [];
     var currDate = new Date();
@@ -146,7 +156,7 @@ var AllStories = React.createClass({
       if (maxToShow === 0) {
         break;
       }
-      if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < 30) {
+      if (this.state.sortedStories[i].score > 0 && this.state.sortedStories[i].score < this.getMinScoreToShow()) {
         continue;
       }
       elems.push(<SingleStory showUser={true}
