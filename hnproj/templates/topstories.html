@@ -127,6 +127,7 @@ var AllStories = React.createClass({
         if (scoreHundCount[scoreFloor] > countThresh
             && (scoreFloor === 0 || scoreHundCount[scoreFloor - 1] < countThresh))
         { 
+          console.log(i + ": " + scoreFloor + ": " + scoreHundCount[scoreFloor] + ": " + i + ": " + soreisArr[i].score + "\n");
           elemsChecked[i] = true;
         }
       }
