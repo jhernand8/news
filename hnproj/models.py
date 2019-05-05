@@ -16,11 +16,11 @@ class HNStory(models.Model):
 # object for storing the list of top HN story ids as of a given time.
 class TopStoryIdsByTime(models.Model):
   storyIds = models.TextField()
-  topTime = models.DateTimeField(auto_now = True, auto_now_add = True, unique = True, primary_key = True)
+  topTime = models.DateTimeField(auto_now = True, unique = True, primary_key = True)
 
 # Object for storing a top story from HN.
 class HNTopStory(models.Model):
   hnStoryId = models.IntegerField(unique = True, primary_key = True)
-  date = models.DateField(auto_now = True, auto_now_add = True)
+  date = models.DateField(auto_now = True)
   story = models.TextField()
   marked_deleted = models.BooleanField(default = False)
