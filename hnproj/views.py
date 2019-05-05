@@ -5,7 +5,7 @@ from django import http
 from django.template import RequestContext, loader
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.safestring import mark_safe
-import urllib.request import urlopen
+from urllib.request import urlopen
 import json
 from json import JSONEncoder
 from hnproj.models import HNUser
