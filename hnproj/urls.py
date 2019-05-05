@@ -1,24 +1,25 @@
-from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+from django.urls import path
+
 admin.autodiscover()
 
 import hnproj.views
 import hnproj.topstoriesviews
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'hnproj.views.newsByUser', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
+    path(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$', 'hnproj.views.newsByUser'),
-    url(r'^users$', 'hnproj.views.users'),
-    url(r'^newsByUser$', 'hnproj.views.newsByUser'),
-    url(r'^deleteAllUsers$', 'hnproj.views.clear_out_users'),
-    url(r'^addUser$', 'hnproj.views.follow_user'),
-    url(r'^cronAddCurrTopItems$', 'hnproj.views.update_top_items'),
-    url(r'^removeTopStories$', 'hnproj.views.remove_top_items'),
-    url(r'^topStories$', 'hnproj.topstoriesviews.home'),
-)
+    path('/', hnproj.views.newsByUser),
+    path('', hnproj.views.newsByUser),
+    path('users', hnproj.views.users),
+    path('newsByUser', hnproj.views.newsByUser),
+    path('deleteAllUsers', hnproj.views.clear_out_users),
+    path('addUser', hnproj.views.follow_user),
+    path('cronAddCurrTopItems', hnproj.views.update_top_items),
+    path('removeTopStories', hnproj.views.remove_top_items),
+    path('topStories', hnproj.topstoriesviews.home),
+]
