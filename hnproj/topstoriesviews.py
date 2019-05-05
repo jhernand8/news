@@ -36,12 +36,11 @@ def home(request):
 
   stories = sorted(stories, key=lambda st: int(st.get('score')), reverse=True);
   stories_w_top_urls = sorted(stories_w_top_urls, key=lambda st: int(st.get('score')), reverse=True);
-  template = loader.get_template('topstories.html')
-  context = RequestContext(request, {
+  context = {
                'allStories': mark_safe(json.dumps(stories, cls=DjangoJSONEncoder)),
                'top_urls': mark_safe(json.dumps(stories_w_top_urls, cls=DjangoJSONEncoder))
-            })
-  return http.HttpResponse(template.render(context))
+            }
+  return render(request, 'topstories.html', context)
 
 # Returns a list of stories that have a url in the top urls.
 def filter_stories_for_top_urls(stories):

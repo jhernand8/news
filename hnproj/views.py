@@ -23,10 +23,7 @@ def users(request):
         jh.save()
         k = HNUser(username = 'kogir', last_run_max_id = 8000000);
         k.save()
-    template = loader.get_template('hn_users.html')
-    context = RequestContext(request, {
-               'users': user_list})
-    return http.HttpResponse(template.render(context))
+    return render(request, 'hn_users.html', {'users': user_list});
 
 def clear_out_users(request):
     users = HNUser.objects.all()
@@ -55,11 +52,10 @@ def newsByUser(request):
       usersToStories[user.username] = userStories
       usernames.append(user.username)
 
-    template = loader.get_template('userStories.html')
-    context = RequestContext(request, {
+    context = {
                'users': mark_safe(json.dumps(usernames, cls=DjangoJSONEncoder)),
-               'storiesByUser': mark_safe(json.dumps(usersToStories, cls=DjangoJSONEncoder))})
-    return http.HttpResponse(template.render(context))
+               'storiesByUser': mark_safe(json.dumps(usersToStories, cls=DjangoJSONEncoder))}
+    return render(request, 'userStories.html', context)
 
 # requests the item with the given id, return the json object.
 def get_item(item_id):
