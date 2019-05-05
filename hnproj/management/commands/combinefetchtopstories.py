@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
   def handle(self, *args, **options):
     if not self.shouldUpdate() :
-      print "Exiting - not in window to run.\n";
+      print("Exiting - not in window to run.\n");
       return
 
     prevTop = HNTopStory.objects.all()
@@ -48,7 +48,7 @@ class Command(BaseCommand):
           uniqueIds.add(int(currid))
         except:
           pass;
-    print "number of unique ids: " + str(len(uniqueIds)) + ".\n"
+    print("number of unique ids: " + str(len(uniqueIds)) + ".\n")
  
     # remove previous top ones that are in the current set
     # record deleted ones so we don't add them back
