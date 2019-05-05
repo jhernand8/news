@@ -11,7 +11,7 @@ urlpatterns = [
     # url(r'^$', 'hnproj.views.newsByUser', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    path(r'^admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
     
     path('/', hnproj.views.newsByUser),
     path('', hnproj.views.newsByUser),
