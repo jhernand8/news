@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.serializers.json import DjangoJSONEncoder
-import urllib2
+from urllib.request import urlopen
 import json
 from hnproj.models import HNUser
 from hnproj.models import HNStory
@@ -64,7 +64,7 @@ class Command(BaseCommand):
   # Returns the json of the HN user requesting it from the API
   def get_user_data(self, username):
     url = 'https://hacker-news.firebaseio.com/v0/user/' + username + '.json'
-    userResp = urllib2.urlopen(url)
+    userResp = urlopen(url)
     userjson = json.load(userResp)
     return userjson
      

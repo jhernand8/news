@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.serializers.json import DjangoJSONEncoder
-import urllib2
 import json
 import pytz
 from hnproj.models import TopStoryIdsByTime
