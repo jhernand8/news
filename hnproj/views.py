@@ -5,7 +5,7 @@ from django import http
 from django.template import RequestContext, loader
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.safestring import mark_safe
-import urllib2
+import urllib.request import urlopen
 import json
 from json import JSONEncoder
 from hnproj.models import HNUser
@@ -36,7 +36,7 @@ def clear_out_users(request):
     
 def get_max_item_id():
     maxItemUrl = 'https://hacker-news.firebaseio.com/v0/maxitem.json'
-    maxItemData = json.load(urllib2.urlopen(maxItemUrl))
+    maxItemData = json.load(urlopen(maxItemUrl))
     return long(maxItemData);
 
 # Logic for page to view the stories submitted by users following.
@@ -64,7 +64,7 @@ def newsByUser(request):
 # requests the item with the given id, return the json object.
 def get_item(item_id):
     url = 'https://hacker-news.firebaseio.com/v0/item/' + str(item_id) + '.json'
-    return json.load(urllib2.urlopen(url))
+    return json.load(urlopen(url))
 
 def is_story(item_json):
     return "story" == item_json.get('type')
@@ -81,7 +81,7 @@ def get_item_list_since(last_id, userjson):
 
 def get_user_data(username):
        url = 'https://hacker-news.firebaseio.com/v0/user/' + username + '.json'
-       userResp = urllib2.urlopen(url)
+       userResp = urlopen(url)
        userjson = json.load(userResp)
        return userjson
 
@@ -100,7 +100,7 @@ def follow_user(request):
 
 def update_top_items(request):
     url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
-    data = json.load(urllib2.urlopen(url));
+    data = json.load(urlopen(url));
     jsonStr = json.dumps(data);
     topIdsObj = TopStoryIdsByTime(storyIds = data);
     topIdsObj.save();
