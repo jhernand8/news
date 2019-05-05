@@ -6,7 +6,6 @@ from hnproj.models import TopStoryIdsByTime
 from hnproj.models import HNStory
 from hnproj.models import HNTopStory
 from hnproj import storyutils
-from sets import Set
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
@@ -40,7 +39,7 @@ class Command(BaseCommand):
     prevTop = HNTopStory.objects.all()
 
     topIds = TopStoryIdsByTime.objects.all()
-    uniqueIds = Set()
+    uniqueIds = set()
     for topIdsForTime in topIds:
       ids = json.loads(topIdsForTime.storyIds)
       for currid in ids:
