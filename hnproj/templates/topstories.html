@@ -2,7 +2,7 @@
 <head>
   <style>
     .singleStoryDiv {
-      padding-top: 3px;
+      padding-top: 5px;
     }
   </style>
   {% load staticfiles %}
@@ -167,6 +167,19 @@ var AllStories = React.createClass({
       count += 1;
       if (maxToShow >= 0 && count > maxToShow) {
         break;
+      }
+    }
+
+    if (maxToShow ==== 0) {
+      var dateForNextTime = new Date();
+      for (var i = 0; i < 24; i += 1) {
+        dateForNextTime = new Date(dateForNextTime.getTime() + 60*60*1000); // add one hour
+        if (computeNumStoriesToShow(dateForNextTime) > 0) {
+          elems.push(<span>
+              Check back around {{(dateForNextTime.getHours() +1)}} or in {{ i }} hours.
+            </span>);
+          break;
+        }
       }
     }
     return (<div><div onKeyUp={this.onKeyUpHandler}
