@@ -176,8 +176,9 @@ var AllStories = React.createClass({
       for (var i = 0; i < 24; i += 1) {
         dateForNextTime = new Date(dateForNextTime.getTime() + 60*60*1000); // add one hour
         if (computeNumStoriesToShow(dateForNextTime) > 0) {
+          var hourTime = dateForNextTime.getHours() + 1;
           elems.push(<span>
-              Check back around {{(dateForNextTime.getHours() +1)}} or in {{ i }} hours.
+              Check back around {{hourTime}} or in {{ i }} hours.
             </span>);
           break;
         }
