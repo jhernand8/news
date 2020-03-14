@@ -109,9 +109,9 @@ var AllStories = React.createClass({
     for (var i = 0; i < storiesArr.length; i++) {
       elemsChecked[i] = false;
     }
+    var scoreHundCount = [];
     if (this.props.checked) {
 
-      var scoreHundCount = [];
       for (var s = 0; s < 50; s++) {
         scoreHundCount[s] = 0;
       }
@@ -141,6 +141,7 @@ var AllStories = React.createClass({
     return {sortedStories: storiesArr,
             elemsChecked: elemsChecked,
             shiftKey: false,
+            scoreHundCount: scoreHundCount,
             lastShiftClickedIndex: -1};
   },
   // stories must have a score of at least this to be shown.
