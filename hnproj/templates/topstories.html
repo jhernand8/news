@@ -110,10 +110,12 @@ var AllStories = React.createClass({
       elemsChecked[i] = false;
     }
     var scoreHundCount = [];
+    var isCheckedByHundScore = [];
     if (this.props.checked) {
 
       for (var s = 0; s < 50; s++) {
         scoreHundCount[s] = 0;
+        isCheckedByHundScore[s] = false;
       }
       // first count num stories with score / 100
       for (var j = 0; j < storiesArr.length; j++) {
@@ -123,20 +125,7 @@ var AllStories = React.createClass({
         var sc = Math.floor(storiesArr[j].score / 100);
         scoreHundCount[sc] += 1; 
       }
-      for (var i = 0; i < storiesArr.length; i++) {
-        if (storiesArr[i].score < this.getMinScoreToShow()) {
-          continue;
-        }
-        // start off checked if more than threshold number stories and not enough in lower scores
-        var scoreFloor = Math.floor(storiesArr[i].score / 100); 
-        var countThresh = 20;
-        if (scoreHundCount[scoreFloor] > countThresh
-            && (scoreFloor === 0 || scoreHundCount[scoreFloor - 1] < countThresh))
-        { 
-          //console.log(i + ": " + scoreFloor + ": " + scoreHundCount[scoreFloor] + ": " + i + ": " + storiesArr[i].score + "\n");
-          elemsChecked[i] = true;
-        }
-      }
+      fetchMarkNextGroupByScoreAsChecked(storiesArr, scoreHundCount, isCheckedByHundScore, elemsChecked);
     }
     return {sortedStories: storiesArr,
             elemsChecked: elemsChecked,
@@ -144,6 +133,34 @@ var AllStories = React.createClass({
             scoreHundCount: scoreHundCount,
             lastShiftClickedIndex: -1};
   },
+
+  // for the next group of items grouped by hundreds portion of score, mark
+  // as checked.
+  fetchMarkNextGroupByScoreAsChecked: function(stories, scoreByHund, isCheckedByHund, elemsChecked) {
+    for (var i = 0; i < stories.length; i++) {
+      if (stories[i].score < this.getMinScoreToShow()) {
+        continue;
+      }
+      // start off checked if more than threshold number stories and not enough in lower scores
+      var scoreFloor = Math.floor(stories[i].score / 100); 
+      var countThresh = 20;
+      if (scoreByHund[scoreFloor] > countThresh
+          && (scoreFloor === 0 || scoreByHund[scoreFloor - 1] < countThresh || isCheckedByHund[scoreFloor - 1]))
+      { 
+        elemsChecked[i] = true;
+        isCheckedByHund[scoreFloor] = true;
+      }
+    }
+  },
+
+  // on click to mark next group
+  handleClickCheckNextGroup: function(e) {
+    var isCheckedByHund = this.state.isCheckedByHund;
+    var storiesChecked = this.state.elemsChecked;
+    fetchMarkNextGroupByScoreAsChecked(this.state.sortedStories, this.state.scoreHundCount, isCheckedByHund, storiesChecked);
+    this.setState({ isCheckedByHund: isCheckedByHund, elemsChecked: storiesChecked});
+  },
+
   // stories must have a score of at least this to be shown.
   getMinScoreToShow: function() {
     return 30;
@@ -171,7 +188,7 @@ var AllStories = React.createClass({
       }
     }
 
-    if (maxToShow ==== 0) {
+    if (maxToShow === 0) {
       var dateForNextTime = new Date();
       for (var i = 0; i < 24; i += 1) {
         dateForNextTime = new Date(dateForNextTime.getTime() + 60*60*1000); // add one hour
@@ -183,6 +200,10 @@ var AllStories = React.createClass({
           break;
         }
       }
+    }
+
+    if (this.props.checked) {
+      elems.append(<button onClick={this.handleClickCheckNextGroup}>Check group</button>);
     }
     return (<div><div onKeyUp={this.onKeyUpHandler}
                  onKeyDown={this.onKeyDownHandler}>{elems}</div>
