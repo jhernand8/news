@@ -125,7 +125,7 @@ var AllStories = React.createClass({
         var sc = Math.floor(storiesArr[j].score / 100);
         scoreHundCount[sc] += 1; 
       }
-      fetchMarkNextGroupByScoreAsChecked(storiesArr, scoreHundCount, isCheckedByHundScore, elemsChecked);
+      this.fetchMarkNextGroupByScoreAsChecked(storiesArr, scoreHundCount, isCheckedByHundScore, elemsChecked);
     }
     return {sortedStories: storiesArr,
             elemsChecked: elemsChecked,
@@ -157,7 +157,7 @@ var AllStories = React.createClass({
   handleClickCheckNextGroup: function(e) {
     var isCheckedByHund = this.state.isCheckedByHund;
     var storiesChecked = this.state.elemsChecked;
-    fetchMarkNextGroupByScoreAsChecked(this.state.sortedStories, this.state.scoreHundCount, isCheckedByHund, storiesChecked);
+    this.fetchMarkNextGroupByScoreAsChecked(this.state.sortedStories, this.state.scoreHundCount, isCheckedByHund, storiesChecked);
     this.setState({ isCheckedByHund: isCheckedByHund, elemsChecked: storiesChecked});
   },
 
