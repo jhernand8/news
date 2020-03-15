@@ -142,19 +142,33 @@ var AllStories = React.createClass({
   // for the next group of items grouped by hundreds portion of score, mark
   // as checked.
   fetchMarkNextGroupByScoreAsChecked: function(stories, scoreByHund, isCheckedByHund, elemsChecked, isInitial) {
+    
+    var countThresh = 20;
+
+    var firstUnchecked = -1;
+    for (var s = 0; s < 50; s++) {
+      // when loading page, check threshold count
+      if ((!isCheckedByHund[s]) && ((!isInitial) || scoreByHund[s] > countThresh)) {
+        firstUnchecked = s;
+        break;
+      }
+    }
+
+    if (firstUnchecked < 0) {
+      return;
+    }
+    isCheckedByHund[firstUnchecked] = true;
+
     for (var i = 0; i < stories.length; i++) {
       if (stories[i].score < this.getMinScoreToShow()) {
         continue;
       }
       // start off checked if more than threshold number stories and not enough in lower scores
-      var scoreFloor = Math.floor(stories[i].score / 100); 
-      var countThresh = 20;
-      if ((scoreByHund[scoreFloor] > countThresh || !isInitial)
-          && (scoreFloor === 0 || scoreByHund[scoreFloor - 1] < countThresh || isCheckedByHund[scoreFloor - 1]))
-      { 
+      var scoreFloor = Math.floor(stories[i].score / 100);
+      if (scoreFloor == firstUnchecked) {
         elemsChecked[i] = true;
-        isCheckedByHund[scoreFloor] = true;
       }
+        
     }
   },
 
