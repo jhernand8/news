@@ -203,7 +203,7 @@ var AllStories = React.createClass({
     }
 
     if (this.props.checked) {
-      elems.append(<button onClick={this.handleClickCheckNextGroup}>Check group</button>);
+      elems.push(<button onClick={this.handleClickCheckNextGroup}>Check group</button>);
     }
     return (<div><div onKeyUp={this.onKeyUpHandler}
                  onKeyDown={this.onKeyDownHandler}>{elems}</div>
