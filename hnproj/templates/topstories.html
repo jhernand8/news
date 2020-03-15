@@ -199,7 +199,7 @@ var AllStories = React.createClass({
         if (computeNumStoriesToShow(dateForNextTime) !== 0) {
           var hourTime = dateForNextTime.getHours() + 1;
           elems.push(<span className='checkBackSpan'>
-              Check back around {{hourTime}} or in {{ i }} hours.
+              Check back around {hourTime} or in { i } hours.
             </span>);
           break;
         }
