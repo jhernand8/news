@@ -4,6 +4,10 @@
     .singleStoryDiv {
       padding-top: 5px;
     }
+    span.checkBackSpan {
+      font-size: 15px;
+      font-weight: bold;
+    }
   </style>
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="/static/story.css">
@@ -192,9 +196,9 @@ var AllStories = React.createClass({
       var dateForNextTime = new Date();
       for (var i = 0; i < 24; i += 1) {
         dateForNextTime = new Date(dateForNextTime.getTime() + 60*60*1000); // add one hour
-        if (computeNumStoriesToShow(dateForNextTime) > 0) {
+        if (computeNumStoriesToShow(dateForNextTime) !== 0) {
           var hourTime = dateForNextTime.getHours() + 1;
-          elems.push(<span>
+          elems.push(<span className='checkBackSpan'>
               Check back around {{hourTime}} or in {{ i }} hours.
             </span>);
           break;
