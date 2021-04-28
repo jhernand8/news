@@ -8,6 +8,10 @@
       font-size: 15px;
       font-weight: bold;
     }
+   .timeType, .mins, .secs, .days, .hours {
+       width: 150;
+       display: inline-block;
+   }
   </style>
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="/static/story.css">
@@ -363,6 +367,7 @@ var VaxCountdown = React.createClass({
     var remainMins = Math.round(remainSecs / 60)
     var remainHours = Math.round(remainMins / 60)
     var remainDays = Math.round(remainHours / 24)
+    var remainPercent = Math.round(remain / totalDuration * 10000) / 100
     
     return <div >
       <span className='timeType' >TOTAL:</span>
@@ -377,6 +382,7 @@ var VaxCountdown = React.createClass({
       <span className="mins">{remainMins} Minutes OR </span>
       <span className="secs">{remainSecs} Seconds</span>
      <br/>
+      <span className="timePerc">{remainPercent}%</span>
     </div>;
   }
 
