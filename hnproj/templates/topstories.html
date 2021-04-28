@@ -336,7 +336,7 @@ var VaxCountdown = React.createClass({
     var timeMid = null;
     var now = Date.now()
 
-    if (now < this.props.mid) {
+    if (now < this.props.mid.getTime()) {
       timeMid = this.renderTimeDiff(this.props.start, this.props.mid, now)
     }
     var timeEnd = this.renderTimeDiff(this.props.start, this.props.end, now)
@@ -349,7 +349,7 @@ var VaxCountdown = React.createClass({
 
   renderTimeDiff: function(start, end, now) {
     var totalDuration = end.getTime() - start.getTime()
-    var compl = now.getTime() - start.getTime()
+    var compl = now - start.getTime()
     var remain = totalDuration - compl
 
     var donePercent = (remain / totalDuration) * 100
