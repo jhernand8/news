@@ -362,20 +362,20 @@ var VaxCountdown = React.createClass({
     var remainSecs = Math.round(remain / 1000)
     var remainMins = Math.round(remainSecs / 60)
     var remainHours = Math.round(remainMins / 60)
-    var remainDays = Math.round(remainHours / 60)
+    var remainDays = Math.round(remainHours / 24)
     
     return <div >
-      <span >TOTAL:</span>
-      <span >{{totalDays}} Days OR </span>
-      <span >{{totalHours}} Hours OR </span>
-      <span >{{totalMins}} Minutes OR </span>
-      <span >{{totalSecs}} Seconds</span>
+      <span className='timeType' >TOTAL:</span>
+      <span className="days">{totalDays} Days OR </span>
+      <span className="hours">{totalHours} Hours OR </span>
+      <span className="mins">{totalMins} Minutes OR </span>
+      <span className="secs">{totalSecs} Seconds</span>
      <br/>
-      <span >REMAIN:</span>
-      <span >{{remainDays}} Days OR </span>
-      <span >{{remainHours}} Hours OR </span>
-      <span >{{remainMins}} Minutes OR </span>
-      <span >{{remainSecs}} Seconds</span>
+      <span className="timeType">REMAIN:</span>
+      <span className="days">{remainDays} Days OR </span>
+      <span className="hours">{remainHours} Hours OR </span>
+      <span className="mins">{remainMins} Minutes OR </span>
+      <span className="secs">{remainSecs} Seconds</span>
      <br/>
     </div>;
   }
