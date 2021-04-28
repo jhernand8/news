@@ -342,7 +342,7 @@ var VaxCountdown = React.createClass({
     var timeEnd = this.renderTimeDiff(this.props.start, this.props.end, now)
 
     return <div>
-      {{timeMid}}<br/>{{timeEnd}}
+      {timeMid}<br/>{timeEnd}
 
     </div>;
   },
@@ -444,7 +444,7 @@ React.render(
 <body>
 <form id="storyForm" method="post" action="/removeTopStories">
 {% csrf_token %}
-<br/><div id="time"/><br/>
+<br/><div id="time"></div><br/>
 <br/><br/><input type="Submit" value="Submit" name="Submit"/><br/><br/>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
