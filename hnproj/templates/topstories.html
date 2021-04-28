@@ -330,6 +330,59 @@ var ScheduleOfWhenShow = React.createClass({
   }
 });
 
+var VaxCountdown = React.createClass({
+  render: function() {
+
+    var timeMid = null;
+    var now = Date.now()
+
+    if (now.before(this.props.mid)) {
+      timeMid = renderTimeDiff(this.props.start, this.props.mid, now)
+    }
+    var timeEnd = renderTimeDiff(this.props.start, this.props.end, now)
+
+    return <div>
+      {{timeMid}}<br/>{{timeEnd}}
+
+    </div>;
+  },
+
+  renderTimeDiff: function(start, end, now) {
+    var totalDuration = end.getTime() - start.getTime()
+    var compl = now.getTime() - start.getTime()
+    var remain = totalDuration - compl
+
+    var donePercent = (remain / totalDuration) * 100
+
+    var totalSecs = Math.round(totalDuration / 1000)
+    var totalMins = Math.round(totalSecs / 60)
+    var totalHours = Math.round(totalMins / 60)
+    var totalDays = Math.round(totalHours / 24)
+
+    var remainSecs = Math.round(remain / 1000)
+    var remainMins = Math.round(remainSecs / 60)
+    var remainHours = Math.round(remainMins / 60)
+    var remainDays = Math.round(remainHours / 60)
+    
+    return <div >
+      <span >TOTAL:</span>
+      <span >{{totalDays}} Days OR </span>
+      <span >{{totalHours}} Hours OR </span>
+      <span >{{totalMins}} Minutes OR </span>
+      <span >{{totalSecs}} Seconds</span>
+     <br/>
+      <span >REMAIN:</span>
+      <span >{{remainDays}} Days OR </span>
+      <span >{{remainHours}} Hours OR </span>
+      <span >{{remainMins}} Minutes OR </span>
+      <span >{{remainSecs}} Seconds</span>
+     <br/>
+    </div>;
+  }
+
+  
+});
+
 var AllStoriesByDate = React.createClass({
   getDisplayDate: function(story) {
     return datestr;
@@ -380,11 +433,18 @@ React.render(
 React.render(
   <ScheduleOfWhenShow/>,
   document.getElementById("schedule"));
+var start = new Date("April 21, 2021 08:00:00")
+var mid = new Date("May 12, 2021 08:00:00")
+var end = new Date("May 26, 2021 08:00:00")
+React.render(
+  <VaxCountdown start=start mid=mid end=end/>,
+  document.getElementById("time"));
 </script>
 </head>
 <body>
 <form id="storyForm" method="post" action="/removeTopStories">
 {% csrf_token %}
+<br/><div id="time"/><br/>
 <br/><br/><input type="Submit" value="Submit" name="Submit"/><br/><br/>
 <h2>Top Stories</h2>
 <div id="topSources"></div>
