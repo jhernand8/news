@@ -336,7 +336,7 @@ var VaxCountdown = React.createClass({
     var timeMid = null;
     var now = Date.now()
 
-    if (now.before(this.props.mid)) {
+    if (now < this.props.mid) {
       timeMid = renderTimeDiff(this.props.start, this.props.mid, now)
     }
     var timeEnd = renderTimeDiff(this.props.start, this.props.end, now)
