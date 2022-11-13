@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'hnproj',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,7 +116,7 @@ ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
