@@ -25,37 +25,11 @@ def users(request):
         k.save()
     return render(request, 'hn_users.html', {'users': user_list});
 
-def clear_out_users(request):
-    users = HNUser.objects.all()
-    for u in users:
-        u.delete();
-    return http.HttpResponse("Deleted all users.");
-    
 def get_max_item_id():
     maxItemUrl = 'https://hacker-news.firebaseio.com/v0/maxitem.json'
     maxItemData = json.load(urlopen(maxItemUrl))
     return long(maxItemData);
 
-# Logic for page to view the stories submitted by users following.
-def newsByUser(request):
-    user_list = HNUser.objects.order_by("username").all()
-    stories = HNStory.objects.order_by("-hnStoryId").all()
-
-    usersToStories = {}
-    
-    usernames = []
-    for user in user_list:
-      userStories = []
-      for story in stories:
-        if story.hnUserId == user.user_id:
-          userStories.append(json.loads(story.storyJSON))
-      usersToStories[user.username] = userStories
-      usernames.append(user.username)
-
-    context = {
-               'users': mark_safe(json.dumps(usernames, cls=DjangoJSONEncoder)),
-               'storiesByUser': mark_safe(json.dumps(usersToStories, cls=DjangoJSONEncoder))}
-    return render(request, 'userStories.html', context)
 
 # requests the item with the given id, return the json object.
 def get_item(item_id):
@@ -80,19 +54,6 @@ def get_user_data(username):
        userResp = urlopen(url)
        userjson = json.load(userResp)
        return userjson
-
-def follow_user(request):
-    usernames = request.POST.getlist('hnUsername')
-    curr_max_id = get_max_item_id()
-    users = ""
-    for username in usernames:
-        if ((not username) or username == ""):
-            continue
-        # start out a little bit before the current max to see items from recently
-        hnuser = HNUser(username, curr_max_id - 20000);
-        hnuser.save();
-        users += username + ", "
-    return http.HttpResponse("now following user(s): " + users);
 
 def update_top_items(request):
     url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
