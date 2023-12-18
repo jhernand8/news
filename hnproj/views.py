@@ -8,22 +8,12 @@ from django.utils.safestring import mark_safe
 from urllib.request import urlopen
 import json
 from json import JSONEncoder
-from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj.models import HNTopStory
 from hnproj.models import TopStoryIdsByTime
 
 def home(request):
-    HNUser.objects.all()
     return http.HttpResponse('Hello World test!')
-def users(request):
-    user_list = HNUser.objects.all()
-    if not user_list:
-        jh = HNUser(username = 'nkzednan', last_run_max_id = 8000000)
-        jh.save()
-        k = HNUser(username = 'kogir', last_run_max_id = 8000000);
-        k.save()
-    return render(request, 'hn_users.html', {'users': user_list});
 
 def get_max_item_id():
     maxItemUrl = 'https://hacker-news.firebaseio.com/v0/maxitem.json'

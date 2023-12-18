@@ -7,7 +7,6 @@ from django.utils.safestring import mark_safe
 from urllib.request import urlopen
 import json
 from json import JSONEncoder
-from hnproj.models import HNUser
 from hnproj.models import HNStory
 from hnproj.models import TopStoryIdsByTime
 from hnproj.models import HNTopStory
