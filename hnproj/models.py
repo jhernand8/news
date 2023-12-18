@@ -1,12 +1,5 @@
 from django.db import models
 
-# Object for a user on Hacker News - the username and the max 
-# id shown for stories by this user that shown when viewing stories
-# by uses following.
-class HNUser(models.Model):
-  username = models.TextField(unique=True)
-  last_run_max_id = models.IntegerField()
-  user_id = models.AutoField(primary_key = True)
 #
 class HNStory(models.Model):
   storyJSON = models.TextField()
