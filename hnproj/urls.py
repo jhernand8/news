@@ -14,7 +14,6 @@ urlpatterns = [
     
     path('/', hnproj.topstoriesviews.home),
     path('', hnproj.topstoriesviews.home),
-    path('users', hnproj.views.users),
     path('cronAddCurrTopItems', hnproj.views.update_top_items),
     path('removeTopStories', hnproj.views.remove_top_items),
     path('topStories', hnproj.topstoriesviews.home),
